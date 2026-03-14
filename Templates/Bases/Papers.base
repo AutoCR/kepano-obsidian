@@ -1,0 +1,83 @@
+filters:
+  and:
+    - categories.contains(link("Papers"))
+    - '!file.name.contains("Template")'
+properties:
+  file.name:
+    displayName: Name
+  note.title:
+    displayName: Title
+  note.authors:
+    displayName: Authors
+  note.venue:
+    displayName: Venue
+  note.year:
+    displayName: Year
+  note.task:
+    displayName: Task
+  note.method:
+    displayName: Method
+  note.dataset:
+    displayName: Dataset
+  note.status:
+    displayName: Status
+  note.rating:
+    displayName: Rating
+views:
+  - type: table
+    name: Papers
+    order:
+      - file.name
+      - title
+      - authors
+      - year
+      - status
+    sort:
+      - property: method
+        direction: DESC
+      - property: year
+        direction: DESC
+  - type: table
+    name: To Read
+    filters:
+      and:
+        - status == "to-read"
+    order:
+      - file.name
+      - title
+      - authors
+      - venue
+      - year
+      - task
+    sort:
+      - property: year
+        direction: DESC
+  - type: table
+    name: Reading
+    filters:
+      and:
+        - status == "reading"
+    order:
+      - file.name
+      - title
+      - authors
+      - venue
+      - year
+      - method
+    sort:
+      - property: year
+        direction: DESC
+  - type: table
+    name: Top Rated
+    filters:
+      and:
+        - rating
+    order:
+      - file.name
+      - title
+      - rating
+      - year
+      - venue
+    sort:
+      - property: rating
+        direction: DESC
