@@ -1,24 +1,20 @@
 ---
 categories:
-  - "[[Papers]]"
+  - "[[Evergreen]]"
 title: bev perception 2022-2026 deep-research-report
-authors: []
-venue:
-year: 2026
-doi:
-url:
-pdf:
-field: []
-keywords: []
-status: to-read
-rating:
-dataset: []
-method: []
-task:
 created: 2026-04-02
 updated:
 tags:
-  - paper
+  - 0🌲
+  - report
+  - deep-research
+  - autonomous-driving
+  - bev
+  - perception
+sources: []
+period:
+  start: 2022
+  end: 2026
 ---
 
 # 自动驾驶 BEV 感知发展现状（2022–2026）

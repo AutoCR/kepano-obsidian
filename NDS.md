@@ -1,3 +1,17 @@
+---
+categories:
+  - "[[Evergreen]]"
+created: 2026-04-03
+updated:
+tags:
+  - 0🌲
+  - metric
+  - autonomous-driving
+  - perception
+aliases:
+  - NuScenes Detection Score
+---
+
 # NDS（NuScenes Detection Score）
 
 ## 1️⃣ 本质理解

@@ -1,3 +1,17 @@
+---
+categories:
+  - "[[Evergreen]]"
+created: 2026-04-03
+updated:
+tags:
+  - 0🌲
+  - metric
+  - autonomous-driving
+  - perception
+aliases:
+  - mean Average Precision
+---
+
 # mAP（mean Average Precision）
 
 ## 1️⃣ 本质理解
