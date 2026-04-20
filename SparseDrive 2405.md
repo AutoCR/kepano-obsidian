@@ -41,6 +41,7 @@ related:
   - "[[Hydra-MDP 2406]]"
   - "[[transfuser]]"
   - "[[TransFuser 2205]]"
+  - "[[FeaXDrive 2604]]"
 ---
 
 一句话：**SparseDrive 是一个以 sparse scene representation 为核心的端到端自动驾驶框架，把 detection / tracking / online mapping / motion prediction / planning 统一到同一个 sparse-centric 范式里。**

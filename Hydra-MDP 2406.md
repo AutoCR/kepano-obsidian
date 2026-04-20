@@ -27,6 +27,7 @@ related:
   - "[[SparseDriveV2 2603]]"
   - "[[SparseDrive 2405]]"
   - "[[transfuser]]"
+  - "[[FeaXDrive 2604]]"
 ---
 感知使用[[transfuser]]，融合视觉和雷达，输出环境token。
 

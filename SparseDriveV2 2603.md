@@ -45,6 +45,7 @@ related:
   - "[[TransFuser 2205]]"
   - "[[navsim评估方法]]"
   - "[[SparseDrive 2405]]"
+  - "[[FeaXDrive 2604]]"
 ---
 
 一句话：**这篇论文的核心观点是，端到端规划不一定需要动态生成轨迹；只要候选轨迹空间足够稠密、并且打分足够高效，纯 scoring-based planning 也可以做到 SOTA。**
