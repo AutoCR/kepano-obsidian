@@ -23,6 +23,10 @@ created: 2026-03-13
 updated:
 tags:
   - paper
+related:
+  - "[[SparseDriveV2 2603]]"
+  - "[[SparseDrive 2405]]"
+  - "[[transfuser]]"
 ---
 感知使用[[transfuser]]，融合视觉和雷达，输出环境token。
 
