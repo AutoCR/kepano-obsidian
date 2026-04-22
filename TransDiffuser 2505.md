@@ -13,6 +13,10 @@ authors:
   - Peng Jia
   - Xianpeng Lang
   - Sheng Sun
+affiliation:
+  - "LiAuto"
+  - "Institute of Computing Technology, Chinese Academy of Sciences"
+  - "Tsinghua University"
 venue: arXiv
 year: 2025
 doi:

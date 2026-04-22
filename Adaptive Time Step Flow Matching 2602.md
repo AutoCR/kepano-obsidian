@@ -13,6 +13,12 @@ authors:
   - David Isele
   - Taskin Padir
   - Faizan M. Tariq
+affiliation:
+  - "Honda Research Institute, San Jose, CA 95134, USA"
+  - "Northeastern University, Boston, MA 02115, USA"
+  - "Princeton University, Princeton, NJ 08544, USA"
+  - "University of Maryland, College Park, MD 20742, USA"
+  - "Stanford University, Stanford, CA 94305, USA"
 venue: arXiv
 year: 2026
 doi:

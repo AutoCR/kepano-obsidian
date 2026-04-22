@@ -9,6 +9,10 @@ authors:
   - Zhiding Yu
   - Zuxuan Wu
   - Jose M. Alvarez
+affiliation:
+  - "Fudan University"
+  - "The Hong Kong Polytechnic University"
+  - "NVIDIA"
 venue: arXiv
 year: 2025
 doi:

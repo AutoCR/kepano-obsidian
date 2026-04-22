@@ -1,13 +1,15 @@
 ---
 categories:
   - "[[Papers]]"
-title: RAPID an efficient reinforcement learning algorithm for small language models
+title: "RAPID: An Efficient Reinforcement Learning Algorithm for Small Language Models"
 authors:
   - Lianghuan Huang
+affiliation:
+  - "University of Pennsylvania"
 venue:
 year: 2025
 doi:
-url:
+url: https://arxiv.org/abs/2510.03515
 pdf: "[[2510 RAPID an efficient reinforcement learning algorithm for small language models.pdf]]"
 field:
 keywords:

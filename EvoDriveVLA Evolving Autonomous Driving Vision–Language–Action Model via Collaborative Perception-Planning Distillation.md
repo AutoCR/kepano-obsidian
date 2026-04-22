@@ -6,10 +6,13 @@ authors:
   - Jiajun Cao
   - xiao peng
   - peking university
+affiliation:
+  - "State Key Laboratory of Multimedia Information Processing, School of Computer Science, Peking University"
+  - "XPeng Motors"
 venue:
 year: 2026
 doi:
-url:
+url: https://arxiv.org/abs/2603.09465
 pdf: https://arxiv.org/pdf/2603.09465
 field: []
 keywords:

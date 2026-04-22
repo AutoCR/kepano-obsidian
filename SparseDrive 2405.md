@@ -9,6 +9,9 @@ authors:
   - Chuang Zhang
   - Haoran Wu
   - Sifa Zheng
+affiliation:
+  - "Tsinghua University"
+  - "Horizon"
 venue: ICRA
 year: 2025
 doi:

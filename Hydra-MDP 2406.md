@@ -4,10 +4,17 @@ categories:
 title: "Hydra-MDP: End-to-end Multimodal Planning with Multi-target Hydra-Distillation"
 authors:
   - Zhenxin Li
+affiliation:
+  - "NVIDIA"
+  - "Fudan University"
+  - "East China Normal University"
+  - "Beijing Institute of Technology"
+  - "Nanjing University"
+  - "Nankai University"
 venue:
 year: 2024
 doi:
-url:
+url: https://arxiv.org/abs/2406.06978
 pdf: "[[2024 hydra-mdp nvidia.pdf]]"
 field: []
 keywords:

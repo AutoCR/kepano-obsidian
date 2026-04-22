@@ -4,10 +4,14 @@ categories:
 title: "LaST-VLA: Thinking in Latent Spatio-Temporal Space for Vision-Language-Action in Autonomous Driving"
 authors:
   - xiaomi
+affiliation:
+  - "Tsinghua University"
+  - "Xiaomi EV"
+  - "University of Macau"
 venue:
 year: 2026
 doi:
-url:
+url: https://arxiv.org/abs/2603.01928
 pdf: https://arxiv.org/pdf/2603.01928
 field: []
 keywords:

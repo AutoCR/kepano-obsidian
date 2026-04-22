@@ -12,6 +12,11 @@ authors:
   - Qian Zhang
   - Wenyu Liu
   - Xinggang Wang
+affiliation:
+  - "School of Electronic Information and Communications, Huazhong University of Science and Technology"
+  - "Institute of Artificial Intelligence, Huazhong University of Science and Technology"
+  - "Horizon Robotics"
+  - "School of Computer Science, Wuhan University"
 venue: arXiv
 year: 2025
 doi:

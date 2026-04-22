@@ -4,6 +4,7 @@ categories:
 
 title:
 authors: []
+affiliation: []
 venue:
 year:
 doi:

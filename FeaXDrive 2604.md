@@ -9,6 +9,8 @@ authors:
   - Xinrui Zhang
   - Bo Leng
   - Lu Xiong
+affiliation:
+  - "College of Automotive and Energy Engineering, Tongji University"
 venue: arXiv
 year: 2026
 doi:

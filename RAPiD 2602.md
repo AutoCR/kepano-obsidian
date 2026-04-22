@@ -8,6 +8,10 @@ authors:
   - Junn Yong Loo
   - Thanh Thi Nguyen
   - Ganesh Krishnasamy
+affiliation:
+  - "School of Information Technology, Monash University, Malaysia"
+  - "Faculty of Information Technology, Monash University, Australia"
+  - "TCS Research, India"
 venue: arXiv
 year: 2026
 doi:

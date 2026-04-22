@@ -13,6 +13,11 @@ authors:
   - Qian Zhang
   - Xiaoxiao Long
   - Wei Yin
+affiliation:
+  - "Horizon Robotics"
+  - "The University of Hong Kong"
+  - "University of the Chinese Academy of Sciences"
+  - "Beijing Jiaotong University"
 venue: arXiv
 year: 2024
 doi:

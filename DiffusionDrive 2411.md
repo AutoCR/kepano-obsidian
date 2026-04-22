@@ -14,6 +14,10 @@ authors:
   - Ying Zhang
   - Qian Zhang
   - Xinggang Wang
+affiliation:
+  - "Institute of Artificial Intelligence, Huazhong University of Science and Technology"
+  - "School of EIC, Huazhong University of Science and Technology"
+  - "Horizon Robotics"
 venue: arXiv
 year: 2024
 doi:

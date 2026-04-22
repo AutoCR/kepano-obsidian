@@ -8,6 +8,9 @@ authors:
   - Michael Schmidt
   - Alvaro Marcos-Ramiro
   - Christoph Stiller
+affiliation:
+  - "Karlsruhe Institute of Technology"
+  - "BMW Group"
 venue: arXiv
 year: 2025
 doi:

@@ -11,6 +11,12 @@ authors:
   - Qian Zhang
   - Xiaoxiao Long
   - Wei Yin
+affiliation:
+  - "School of Artificial Intelligence, University of Chinese Academy of Sciences"
+  - "Horizon Robotics"
+  - "Nanjing University"
+  - "Huazhong University of Science and Technology"
+  - "Shanghai AI Laboratory"
 venue: arXiv
 year: 2025
 doi:

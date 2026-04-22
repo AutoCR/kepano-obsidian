@@ -3,10 +3,19 @@ categories:
   - "[[Papers]]"
 title: Pseudo-Simulation for Autonomous Driving
 authors: []
+affiliation:
+  - "University of Tübingen, Tübingen AI Center"
+  - "NVIDIA Research"
+  - "Robert Bosch GmbH"
+  - "OpenDriveLab at Shanghai Innovation Institute"
+  - "University of Stuttgart"
+  - "University of Toronto"
+  - "Vector Institute"
+  - "Stanford University"
 venue:
 year: 2025
 doi:
-url:
+url: https://arxiv.org/abs/2506.04218
 pdf: https://arxiv.org/pdf/2506.04218
 field: []
 keywords: []

@@ -8,6 +8,8 @@ authors:
   - Shuohan Chen
   - Shuo Yang
   - Yanjun Huang
+affiliation:
+  - "School of Automotive Studies, Tongji University, Shanghai, China"
 venue: arXiv
 year: 2026
 doi:

@@ -4,10 +4,11 @@ categories:
 title: "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving"
 authors:
   - Kashyap Chitta
+affiliation: []
 venue:
 year:
 doi:
-url:
+url: https://arxiv.org/abs/2205.15997
 pdf: "[[2205 TransFuser Imitation with transformer based sensor fusion for autonomous driving.pdf]]"
 field: []
 keywords:

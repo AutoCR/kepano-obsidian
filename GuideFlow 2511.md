@@ -12,6 +12,13 @@ authors:
   - Peiliang Wu
   - Xiaoshuai Hao
   - Yadan Luo
+affiliation:
+  - "School of Computer Science and Technology, Beijing Jiaotong University"
+  - "Beijing Key Laboratory of Traffic Data Mining and Embodied Intelligence"
+  - "Qcraft"
+  - "Yanshan University"
+  - "Institute of Information Engineering, Chinese Academy of Sciences"
+  - "The University of Queensland"
 venue: arXiv
 year: 2025
 doi:

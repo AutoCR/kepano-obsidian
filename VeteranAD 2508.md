@@ -1,13 +1,16 @@
 ---
 categories:
   - "[[Papers]]"
-title: "Perception in plan: coupled perception and planning for end to end autonomous driving."
+title: "Perception in Plan: Coupled Perception and Planning for End-to-End Autonomous Driving"
 authors:
   - Bozhou Zhang
+affiliation:
+  - "School of Data Science, Fudan University"
+  - "Shanghai Innovation Institute"
 venue:
 year: 2025
 doi:
-url:
+url: https://arxiv.org/abs/2508.11488
 pdf: "[[2508 VeteranAD perception in plan coupled perception and planning for end to end autonomous driving.pdf]]"
 field: []
 keywords:

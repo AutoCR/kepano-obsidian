@@ -5,10 +5,14 @@ title: "DriveSuprim: Towards Precise Trajectory Selection for End-to-End Plannin
 authors:
   - Wenhao Yao
   - Zhenxin Li
+affiliation:
+  - "Shanghai Key Lab of Intell. Info. Processing, School of CS, Fudan University"
+  - "Shanghai Collaborative Innovation Center of Intelligent Visual Computing"
+  - "NVIDIA"
 venue:
 year: 2025
 doi:
-url:
+url: https://arxiv.org/abs/2506.06659
 pdf: "[[2506 DriveSuprim Towards precise trajectory selection for end to end planning.pdf]]"
 field: []
 keywords:

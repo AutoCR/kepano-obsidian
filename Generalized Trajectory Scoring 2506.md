@@ -13,6 +13,9 @@ authors:
   - Zuxuan Wu
   - Shiyi Lan
   - Jose M. Alvarez
+affiliation:
+  - "NVIDIA"
+  - "Fudan University"
 venue: arXiv
 year: 2025
 doi:

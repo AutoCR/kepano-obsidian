@@ -18,6 +18,9 @@ authors:
   - Hangjun Ye
   - Wenyu Liu
   - Xinggang Wang
+affiliation:
+  - "Huazhong University of Science and Technology"
+  - "Xiaomi EV"
 venue: arXiv
 year: 2025
 doi:

@@ -10,6 +10,10 @@ authors:
   - Xiang Li
   - Yining Shi
   - Sifa Zheng
+affiliation:
+  - "Tsinghua University, Beijing, China"
+  - "Horizon Continental Technology, Beijing, China"
+  - "Horizon, Beijing, China"
 venue: arXiv
 year: 2026
 doi:

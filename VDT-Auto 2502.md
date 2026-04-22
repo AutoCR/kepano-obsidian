@@ -8,6 +8,8 @@ authors:
   - Selamawit Asfaw
   - Zakhar Yagudin
   - Dzmitry Tsetserukou
+affiliation:
+  - "Intelligent Space Robotics Laboratory, Center for Digital Engineering, Skolkovo Institute of Science and Technology, Moscow, Russia"
 venue: arXiv
 year: 2025
 doi:

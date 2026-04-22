@@ -2,14 +2,14 @@
 categories:
   - "[[Papers]]"
 
-title:
+title: "TransFuser: Imitation with Transformer-Based Sensor Fusion for Autonomous Driving"
 authors: []
+affiliation: []
 venue:
 year:
 doi:
-url:
-pdf:
-
+url: https://arxiv.org/abs/2205.15997
+pdf: "[[2205 TransFuser Imitation with transformer based sensor fusion for autonomous driving.pdf]]"
 field: []
 keywords: []
 
