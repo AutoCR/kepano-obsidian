@@ -53,6 +53,7 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[Hydra-MDP 2406]]"
   - "[[HMAD 2505]]"
+  - "[[Diffusion]]"
 ---
 
 One-line takeaway: **DiffusionDrive makes diffusion practical for E2E driving by anchoring and truncating the denoising process, yielding strong NAVSIM performance at real-time speed.**

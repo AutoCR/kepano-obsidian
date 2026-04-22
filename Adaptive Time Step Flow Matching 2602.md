@@ -54,6 +54,8 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[GuideFlow 2511]]"
   - "[[GoalFlow 2503]]"
+  - "[[Flow matching and diffusion models]]"
+  - "[[Gaussian probability path]]"
 ---
 
 One-line takeaway: **This paper makes flow-matching planning practical online by adapting the number of inference steps per scene and adding a cheap constraint-satisfying QP smoother.**
