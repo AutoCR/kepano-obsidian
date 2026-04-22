@@ -49,6 +49,7 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[SparseDriveV2 2603]]"
   - "[[CdDrive 2602]]"
+  - "[[NVIDIA end-to-end autonomous driving papers on arXiv]]"
 ---
 
 One-line takeaway: **GTRS argues that robust E2E planning comes from jointly scoring coarse static anchors and fine diffusion proposals, yielding the winning NAVSIM v2 challenge solution.**
