@@ -14,8 +14,8 @@ authors:
   - Shiyi Lan
   - Jose M. Alvarez
 affiliation:
-  - "NVIDIA"
-  - "Fudan University"
+  - NVIDIA
+  - Fudan University
 venue: arXiv
 year: 2025
 doi:
@@ -25,56 +25,88 @@ field:
   - autonomous-driving
   - end-to-end-planning
 keywords:
-  - trajectory scoring
-  - diffusion proposals
-  - static vocabulary
-  - vocabulary generalization
-  - NAVSIM v2
+  - trajectory-scoring
+  - diffusion-proposals
+  - navsim
+  - multimodal-planning
   - robustness
 status:
   - read
 rating:
 dataset:
-  - NAVSIM
+  - Navsim
   - Navhard
 method:
-  - hybrid scorer over static and dynamic candidates
-  - vocabulary generalization
+  - GTRS
+  - diffusion proposals
+  - vocabulary dropout
   - sensor augmentation
-  - refinement decoder
-task: end-to-end autonomous driving planning
+task: end-to-end multimodal planning
 created: 2026-04-20
-updated:
+updated: 2026-04-22
 tags:
   - paper
+  - nvidia
 related:
-  - "[[score-based e2e autonomous driving papers 2022-2026]]"
-  - "[[score-based e2e autonomous driving review]]"
-  - "[[SparseDriveV2 2603]]"
-  - "[[CdDrive 2602]]"
+  - "[[Hydra-MDP 2406]]"
+  - "[[Latent World Models for Covariate Shift 2409]]"
+  - "[[DriveCritic 2510]]"
   - "[[NVIDIA end-to-end autonomous driving papers on arXiv]]"
+  - "[[NVIDIA end-to-end AV review 2023-now]]"
 ---
 
-One-line takeaway: **GTRS argues that robust E2E planning comes from jointly scoring coarse static anchors and fine diffusion proposals, yielding the winning NAVSIM v2 challenge solution.**
+One-line takeaway: **GTRS wins Navsim v2 by training a scorer that can judge both dense static trajectory vocabularies and dynamic diffusion proposals under harder sensor conditions.**
 
 # Core takeaways
-- Unifies large static-vocabulary scoring with dynamic proposal scoring.
-- Trains the scorer to generalize across variable candidate subsets.
-- Targets NAVSIM v2 / Navhard where robustness matters more than easy leaderboard gains.
+- This paper extends the score-based planning line beyond fixed-vocabulary-only scoring.
+- It separates planning into **candidate generation** and **candidate scoring**.
+- The scorer is trained to generalize across different candidate subsets rather than overfit to a single proposal pool.
+- Sensor augmentation and refinement improve robustness on the harder Navhard regime.
+- GTRS is best read as the next step after [[Hydra-MDP 2406]].
 
-# Method summary
-The method combines a diffusion-based proposal generator with a scorer trained over a very dense static trajectory vocabulary. Training includes candidate subsampling and refinement so the scorer can handle both static and dynamic candidate pools at inference.
+# Model details
+## Overall structure
+- **DP:** diffusion-based trajectory generator.
+- **GTRS-Dense:** dense-vocabulary scorer.
+- **GTRS-Aug:** robustness-oriented scorer with sensor augmentation and refinement.
+
+## Diffusion proposal generator
+- Uses image features and BEV features.
+- A diffusion transformer generates dynamic trajectory proposals.
+- BEV segmentation supervision helps stabilize the feature representation.
+- DDPM-style denoising is used for sampling.
+
+## Dense scorer
+- A trajectory tokenizer encodes candidate trajectories.
+- A transformer decoder models interactions between image tokens and trajectory tokens.
+- Training uses a **super-dense static vocabulary** and **trajectory dropout**.
+- The crucial trick is that the scorer learns to handle variable candidate sets and can therefore score unseen diffusion proposals at inference.
+
+## Augmented scorer
+- Applies sensor perturbations / view rotations during training.
+- Adds a training-only refinement decoder for top-k candidates.
+- Uses EMA self-distillation to refine high-value scores.
+
+# Training / inference notes
+- Trained on Navtrain; synthetic / Navhard test data are not directly used for training.
+- Reported training uses 24×A100, large batch size, and 20 epochs for scorers.
+- The diffusion proposal generator is trained longer than the scorer.
+- Inference appends dynamic proposals to the static vocabulary and chooses the highest-scoring candidate.
 
 # Benchmarks / results
-On Navhard, the challenge-winning ensemble reaches about 49.4 EPDMS, close to privileged PDM-Closed. Single-model variants also report strong EPDMS in the mid-40s.
-
-# Relation to the score-based E2E AD lineage
-This paper bridges Hydra-style vocabulary scoring and later hybrid systems like CdDrive by showing the value of scoring both static and dynamic candidates in a common framework.
+- The paper reports a step-by-step gain from dense scoring, then candidate-set generalization, then augmentation/refinement.
+- Best single-model and ensemble results substantially improve over earlier Navsim baselines.
+- The top ensemble approaches the privileged PDM-Closed reference under Navhard.
 
 # Caveats
-- Top performance partly depends on ensembling.
-- Pipeline complexity is higher than pure scoring-only approaches.
+- Benchmark dependence is strong: the paper is tightly optimized for Navsim / EPDMS-style evaluation.
+- Proposal quality still matters a lot; the scorer cannot rescue completely bad candidate sets.
+- Dynamic proposals are added mainly at inference, so full joint generator-scorer optimization is limited.
 
-# Links
-- Paper list: [[score-based e2e autonomous driving papers 2022-2026]]
-- Review: [[score-based e2e autonomous driving review]]
+# My understanding
+Hydra-MDP says “predict decomposed scores over a vocabulary.” GTRS says “that is not enough — the scorer must generalize across both static and dynamic proposal spaces.” It is a more flexible and more challenge-robust version of the same overall planning worldview.
+
+# Related reading
+- [[Hydra-MDP 2406]]
+- [[DriveCritic 2510]]
+- [[NVIDIA end-to-end AV review 2023-now]]
