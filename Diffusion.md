@@ -37,7 +37,7 @@ $$
 q(x_t \mid x_{t-1}) = \mathcal N(x_t; \alpha_t x_{t-1}, \beta_t^2 I),
 $$
 
-where \(\alpha_t^2 + \beta_t^2 = 1\). If we define
+where $(\alpha_t^2 + \beta_t^2 = 1)$. If we define
 
 $$
 \bar\alpha_t = \prod_{s=1}^t \alpha_s, \qquad \bar\beta_t = \sqrt{1 - \bar\alpha_t^2},
