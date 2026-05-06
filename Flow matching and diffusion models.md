@@ -35,10 +35,10 @@ The main difference is what the model learns directly.
 
 ## 1. Starting point: a probability path
 
-We choose a family of intermediate distributions \(p_t(x)\) for \(t \in [0,1]\):
+We choose a family of intermediate distributions $p_t(x)$ for $t \in [0,1]$:
 
-- \(p_0\) is a simple base distribution, often Gaussian,
-- \(p_1\) is the data distribution.
+- $p_0$ is a simple base distribution, often Gaussian,
+- $p_1$ is the data distribution.
 
 This family is called a **probability path**.
 
@@ -52,9 +52,9 @@ $$
 \frac{d x_t}{dt} = u_t(x_t),
 $$
 
-where \(u_t(x)\) is a time-dependent vector field.
+where $u_t(x)$ is a time-dependent vector field.
 
-If I knew the true marginal vector field \(u_t^{\text{target}}(x)\), I could transport noise into data by integrating this ODE.
+If I knew the true marginal vector field $u_t^{\text{target}}(x)$, I could transport noise into data by integrating this ODE.
 
 So the learning problem becomes:
 
@@ -64,11 +64,11 @@ So the learning problem becomes:
 
 The original note emphasizes an important practical point.
 
-The object we ultimately want is the **marginal vector field** over \(p_t(x)\), but directly computing it is hard.
+The object we ultimately want is the **marginal vector field** over $p_t(x)$, but directly computing it is hard.
 
-Instead, we often use a **conditional probability path** \(p_t(x \mid z)\), where \(z\) is a data sample or latent anchor. Then we derive a **conditional vector field** that is easy to write down.
+Instead, we often use a **conditional probability path** $p_t(x \mid z)$, where $z$ is a data sample or latent anchor. Then we derive a **conditional vector field** that is easy to write down.
 
-Training with the conditional field works because, after averaging over \(z\), it matches the marginal transport we need. This plays a role similar to stochastic gradients in optimization:
+Training with the conditional field works because, after averaging over $z$, it matches the marginal transport we need. This plays a role similar to stochastic gradients in optimization:
 - each conditional sample is only one local view,
 - but the expectation recovers the correct global target.
 
@@ -117,7 +117,7 @@ That is why many diffusion papers can be reinterpreted as transport problems, an
 ## 7. Training targets in practice
 
 ### 7.1 Flow matching objective
-Flow matching trains a network \(u_\theta(x_t, t)\) to approximate the target vector field:
+Flow matching trains a network $u_\theta(x_t, t)$ to approximate the target vector field:
 
 $$
 \mathcal L_{\text{FM}} = \mathbb E\big[\lVert u_\theta(x_t, t) - u_t^{\text{target}}(x_t) \rVert^2\big].
@@ -126,7 +126,7 @@ $$
 In practice, the marginal target is often replaced by a conditional target because the latter is tractable.
 
 ### 7.2 Score matching objective
-Score matching trains a network \(s_\theta(x_t, t)\) to match the score:
+Score matching trains a network $s_\theta(x_t, t)$ to match the score:
 
 $$
 \mathcal L_{\text{SM}} = \mathbb E\big[\lVert s_\theta(x_t, t) - \nabla_x \log p_t(x_t \mid z) \rVert^2\big]

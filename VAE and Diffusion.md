@@ -43,7 +43,7 @@ If I only keep four ideas in mind, they are these:
 ## 1. Probability basics that appear everywhere
 
 ### 1.1 Information content
-For an event with probability \(p(x)\), the information content is
+For an event with probability $p(x)$, the information content is
 
 $$
 I(x) = -\log p(x).
@@ -58,16 +58,16 @@ $$
 H(p) = \mathbb{E}_{x \sim p}[-\log p(x)] = -\sum_i p(x_i) \log p(x_i).
 $$
 
-It measures the intrinsic uncertainty of the distribution \(p\).
+It measures the intrinsic uncertainty of the distribution $p$.
 
 ### 1.3 Cross-entropy
-Cross-entropy measures how expensive it is to encode samples from \(p\) using a model \(q\):
+Cross-entropy measures how expensive it is to encode samples from $p$ using a model $q$:
 
 $$
 H(p, q) = \mathbb{E}_{x \sim p}[-\log q(x)].
 $$
 
-In supervised learning, \(p\) is usually fixed by the dataset, so minimizing cross-entropy is equivalent to making the model distribution \(q\) close to the data distribution.
+In supervised learning, $p$ is usually fixed by the dataset, so minimizing cross-entropy is equivalent to making the model distribution $q$ close to the data distribution.
 
 ### 1.4 KL divergence
 KL divergence measures the gap between two distributions:
@@ -77,7 +77,7 @@ D_{KL}(p \Vert q) = H(p, q) - H(p) = \sum_i p(x_i) \log \frac{p(x_i)}{q(x_i)} \g
 $$
 
 Important intuition:
-- In **discriminative learning**, cross-entropy is convenient because \(H(p)\) is constant.
+- In **discriminative learning**, cross-entropy is convenient because $H(p)$ is constant.
 - In **generative modeling**, KL often appears explicitly because we care about matching entire distributions.
 
 ## 2. MLE and MAP
@@ -104,18 +104,18 @@ So MAP can be understood as **MLE plus regularization**.
 
 ### 2.3 Probability vs likelihood
 A useful vocabulary distinction:
-- \(p(X \mid \theta)\) is a **probability distribution over data** when \(\theta\) is fixed.
-- The same expression is called a **likelihood function of parameters** when \(X\) is fixed and \(\theta\) varies.
+- $p(X \mid \theta)$ is a **probability distribution over data** when $\theta$ is fixed.
+- The same expression is called a **likelihood function of parameters** when $X$ is fixed and $\theta$ varies.
 
 ## 3. Where VAE fits
 
-A variational autoencoder models data through a latent variable \(z\):
+A variational autoencoder models data through a latent variable $z$:
 
 $$
 p_\theta(x) = \int p_\theta(x \mid z) p(z) \, dz.
 $$
 
-The main difficulty is that the posterior \(p_\theta(z \mid x)\) is usually intractable, so VAE introduces an approximate posterior \(q_\phi(z \mid x)\).
+The main difficulty is that the posterior $p_\theta(z \mid x)$ is usually intractable, so VAE introduces an approximate posterior $q_\phi(z \mid x)$.
 
 The big picture is:
 - the **encoder** approximates the posterior over latent variables,
@@ -135,10 +135,10 @@ x_0 \rightarrow x_1 \rightarrow \cdots \rightarrow x_T.
 $$
 
 The model then learns the **reverse process** that turns noisy samples back into clean data. In practice, the network often predicts one of:
-- the noise \(\epsilon\),
-- the clean sample \(x_0\),
-- the score \(\nabla_x \log p_t(x)\), or
-- a velocity-like target \(v\).
+- the noise $\epsilon$,
+- the clean sample $x_0$,
+- the score $\nabla_x \log p_t(x)$, or
+- a velocity-like target $v$.
 
 These parameterizations look different, but they are closely related.
 

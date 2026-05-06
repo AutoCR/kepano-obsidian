@@ -37,9 +37,9 @@ x_t = \alpha_t z + \beta_t \epsilon, \qquad \epsilon \sim \mathcal N(0, I).
 $$
 
 Here:
-- \(z\) is the target data sample,
-- \(\alpha_t\) controls how much signal remains,
-- \(\beta_t\) controls how much noise is injected.
+- $z$ is the target data sample,
+- $\alpha_t$ controls how much signal remains,
+- $\beta_t$ controls how much noise is injected.
 
 ## 2. Boundary conditions
 
@@ -56,15 +56,15 @@ $$
 $$
 
 So:
-- at \(t=0\), the sample is pure Gaussian noise,
-- at \(t=1\), the sample collapses to the clean point \(z\).
+- at $t=0$, the sample is pure Gaussian noise,
+- at $t=1$, the sample collapses to the clean point $z$.
 
 ## 3. Why this path is so convenient
 
 The Gaussian path is popular because it is analytically friendly.
 
 ### 3.1 Easy to sample
-Given \(z\), generating \(x_t\) is trivial.
+Given $z$, generating $x_t$ is trivial.
 
 ### 3.2 Easy to differentiate
 Both the score and the conditional transport field often have closed forms.
@@ -102,15 +102,15 @@ x_t = \bar\alpha_t x_0 + \bar\beta_t \epsilon.
 $$
 
 This is the same basic idea with different symbols:
-- \(x_0\) plays the role of the clean sample \(z\),
-- \(\bar\alpha_t\) is the signal coefficient,
-- \(\bar\beta_t\) is the noise coefficient.
+- $x_0$ plays the role of the clean sample $z$,
+- $\bar\alpha_t$ is the signal coefficient,
+- $\bar\beta_t$ is the noise coefficient.
 
 So the Gaussian probability path is not a separate concept from diffusion; it is one of diffusion's core building blocks.
 
 ## 6. What changes across papers
 
-Different papers mainly differ in the schedule for \(\alpha_t\) and \(\beta_t\).
+Different papers mainly differ in the schedule for $\alpha_t$ and $\beta_t$.
 
 Changing the schedule changes:
 - how quickly signal disappears,

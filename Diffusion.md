@@ -43,7 +43,7 @@ $$
 \bar\alpha_t = \prod_{s=1}^t \alpha_s, \qquad \bar\beta_t = \sqrt{1 - \bar\alpha_t^2},
 $$
 
-then we can jump directly from \(x_0\) to any noisy step \(x_t\):
+then we can jump directly from $x_0$ to any noisy step $x_t$:
 
 $$
 x_t = \bar\alpha_t x_0 + \bar\beta_t \epsilon, \qquad \epsilon \sim \mathcal N(0, I),
@@ -67,7 +67,7 @@ $$
 which should remove a little noise at each step. The exact reverse distribution depends on the data distribution, so we approximate it with a neural network.
 
 ### 1.3 Why predict noise?
-A common parameterization is to predict the injected noise \(\epsilon\) rather than predicting \(x_0\) directly.
+A common parameterization is to predict the injected noise $\epsilon$ rather than predicting $x_0$ directly.
 
 From
 
@@ -110,7 +110,7 @@ This is why DDIM is often interpreted as an **ODE-style sampler**.
 
 ### 2.3 Practical interpretation
 A useful mental model is:
-1. use the network to estimate the clean signal \(\hat x_0\),
+1. use the network to estimate the clean signal $\hat x_0$,
 2. re-noise that estimate to an earlier timestep,
 3. optionally inject stochasticity.
 
@@ -124,10 +124,10 @@ $$
 x_{k+1} = x_k + \frac{\eta}{2} \nabla_x \log p(x_k) + \sqrt{\eta} z_k,
 $$
 
-where \(z_k \sim \mathcal N(0, I)\).
+where $z_k \sim \mathcal N(0, I)$.
 
 The meaning is simple:
-- the **score** \(\nabla_x \log p(x)\) points toward regions of higher probability density,
+- the **score** $\nabla_x \log p(x)$ points toward regions of higher probability density,
 - the noise term keeps sampling stochastic,
 - iterating this update moves samples toward the target distribution.
 
@@ -142,9 +142,9 @@ dx = f_t(x) \, dt + g_t \, dw.
 $$
 
 Here:
-- \(f_t(x)\) is the drift,
-- \(g_t\) controls noise strength,
-- \(dw\) is Brownian motion.
+- $f_t(x)$ is the drift,
+- $g_t$ controls noise strength,
+- $dw$ is Brownian motion.
 
 The reverse-time SDE becomes
 
@@ -152,11 +152,11 @@ $$
 dx = \big(f_t(x) - g_t^2 \nabla_x \log p_t(x)\big) dt + g_t \, d\bar w,
 $$
 
-so generation requires the time-dependent score \(\nabla_x \log p_t(x)\).
+so generation requires the time-dependent score $\nabla_x \log p_t(x)$.
 
 This gives the central score-matching idea:
 
-> train a neural network \(s_\theta(x_t, t)\) to approximate the score of the noisy data distribution.
+> train a neural network $s_\theta(x_t, t)$ to approximate the score of the noisy data distribution.
 
 That is why diffusion models, score-based models, and denoising models are so tightly connected.
 
@@ -182,7 +182,7 @@ So a good summary is:
 CFG is a practical way to strengthen conditioning without training a separate classifier.
 
 The model is trained to handle both:
-- a conditional input \(y\), and
+- a conditional input $y$, and
 - a null or dropped condition.
 
 At inference time, we combine the two outputs:
@@ -191,14 +191,14 @@ $$
 s_{\text{guided}} = s_{\text{uncond}} + w\big(s_{\text{cond}} - s_{\text{uncond}}\big),
 $$
 
-where \(w\) is the guidance strength.
+where $w$ is the guidance strength.
 
 Interpretation:
-- \(w = 1\): standard conditional generation,
-- \(w > 1\): stronger condition following,
-- \(w = 0\): unconditional generation.
+- $w = 1$: standard conditional generation,
+- $w > 1$: stronger condition following,
+- $w = 0$: unconditional generation.
 
-The same trick works whether the model predicts score, noise, \(x_0\), or \(v\).
+The same trick works whether the model predicts score, noise, $x_0$, or $v$.
 
 ## 7. The important unification
 
@@ -206,9 +206,9 @@ A lot of confusion disappears if I keep this table in mind:
 
 | Concept | What is learned? | What is changed? |
 |---|---|---|
-| DDPM | usually noise \(\epsilon\) | stochastic discrete sampler |
+| DDPM | usually noise $\epsilon$ | stochastic discrete sampler |
 | DDIM | same trained model | faster / often deterministic sampler |
-| Score matching | score \(\nabla_x \log p_t(x)\) | training interpretation |
+| Score matching | score $\nabla_x \log p_t(x)$ | training interpretation |
 | Reverse SDE | score field | stochastic continuous-time sampler |
 | Probability-flow ODE | score field | deterministic continuous-time sampler |
 | CFG | conditional difference | stronger condition control |
