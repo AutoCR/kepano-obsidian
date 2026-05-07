@@ -40,6 +40,7 @@ updated:
 tags:
   - paper
 related:
+  - "[[Sparse4D 2211]]"
   - "[[SparseDriveV2 2603]]"
   - "[[Hydra-MDP 2406]]"
   - "[[transfuser]]"
