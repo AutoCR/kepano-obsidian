@@ -351,13 +351,13 @@ def ms_deform_attn(query, reference_points, feature_maps):
 
 On COCO val with ResNet-50:
 
-| Method | Epochs | AP | Small AP |
-|---|---:|---:|---:|
-| DETR | 500 | 42.0 | 20.5 |
-| DETR-DC5, 50 epochs | 50 | 35.3 | 15.2 |
-| Deformable DETR | 50 | 43.8 | 26.4 |
-| + iterative box refinement | 50 | 45.4 | 26.8 |
-| ++ two-stage | 50 | 46.2 | 28.8 |
+| Method                     | Epochs |   AP | Small AP |
+| -------------------------- | -----: | ---: | -------: |
+| DETR                       |    500 | 42.0 |     20.5 |
+| DETR-DC5, 50 epochs        |     50 | 35.3 |     15.2 |
+| Deformable DETR            |     50 | 43.8 |     26.4 |
+| + iterative box refinement |     50 | 45.4 |     26.8 |
+| ++ two-stage               |     50 | 46.2 |     28.8 |
 
 Main result:
 

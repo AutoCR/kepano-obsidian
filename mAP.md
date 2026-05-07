@@ -52,7 +52,7 @@ center distance < 阈值（如 2m / 4m）
 - TP → precision ↑
 - FP → precision ↓
 
-$$ Precision=TPTP+FP$$$$\text{Recall} = \frac{TP}{GT}$$​
+$$ Precision=\frac{TP}{TP+FP}$$$$\text{Recall} = \frac{TP}{GT}$$​
 
 ---
 
