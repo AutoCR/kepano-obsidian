@@ -86,32 +86,115 @@ The paper's answer is yes.
 Denoising means the model receives noisy training examples and learns to recover the correct object.
 
 Sparse4D v3 extends this idea to temporal instances.
-It creates noisy historical object instances.
-The model learns to refine them in the current frame.
+It simulates imperfect temporal queries during training.
+This matches the real inference problem.
+At inference, the model must refine imperfect instances carried from previous frames.
 
-This helps the recurrent temporal model become more stable.
-It also improves convergence.
+The basic training idea is:
+
+```text
+clean GT box
+-> add noise
+-> noisy instance
+-> model predicts a clean box again
+```
+
+For a temporal denoising instance, the noisy instance is propagated through time.
+So from the next frame's view, it looks like a noisy historical instance.
+
+Simple example:
+
+```text
+frame t GT center:      x = 10.0
+add noise:             x = 10.5
+model learns:          10.5 -> 10.0
+
+propagate to frame t+1: x = 11.5
+frame t+1 GT center:    x = 11.0
+model learns:           11.5 -> 11.0
+```
+
+Important understanding from our discussion:
+
+- It is not just adding noise independently to historical GT boxes.
+- It is closer to: noisy instance at frame `t` -> propagate to frame `t+1` -> refine as a temporal instance.
+- This better mimics inference, where imperfect temporal instances are carried forward.
+
+The paper uses multiple noisy groups.
+Each group gives a different noisy version of the same GT object.
+
+Example:
+
+```text
+GT car center: x = 10.0, y = 4.0
+
+group 1: x = 10.4, y = 3.8 -> recover GT
+group 2: x =  9.6, y = 4.3 -> recover GT
+group 3: x = 10.9, y = 4.5 -> recover GT
+```
+
+The groups are independent.
+The model uses attention masks so noisy groups do not leak information to each other.
+
+Implementation detail from the paper:
+
+```text
+M = 5 denoising groups
+3 groups are randomly selected as temporal denoising groups
+```
+
+The paper also distinguishes noisy instances from normal learnable instances.
+
+- Noisy instances use **pre-matching**.
+- Normal learnable instances use **post-matching**.
+
+Simple meaning:
+
+```text
+pre-matching:
+noisy input anchors <-> GT
+used to assign denoising targets
+
+post-matching:
+decoder predictions <-> GT
+used for normal detection loss
+```
+
+This helps the denoising task know which GT each noisy anchor should recover.
 
 ## 2. Quality estimation
 
 The paper argues that classification confidence is not enough.
 A high classification score does not always mean the 3D box is accurate.
 
-Sparse4D v3 predicts two extra quality scores.
+So Sparse4D v3 predicts two extra quality scores:
+
+- centerness
+- yawness
+
+These scores help the model rank predictions by box quality, not only by class confidence.
 
 ### Centerness
 
 Centerness measures how close the predicted box center is to the ground-truth box center.
 
 ```text
-C = exp(-||center_pred - center_gt||)
+C = exp(-||[x, y, z]_pred - [x, y, z]_gt||_2)
 ```
 
 If the predicted center is close, centerness is high.
 If it is far away, centerness is low.
 
-At inference, the paper uses centerness to improve result ranking.
-This reduces translation error.
+At inference, centerness can be multiplied with classification confidence.
+This makes the result ranking better.
+It especially helps reduce translation error, or mATE.
+
+Our simple understanding:
+
+```text
+classification score: "Is this a car?"
+centerness:           "Is this car box centered well?"
+```
 
 ### Yawness
 
@@ -122,6 +205,29 @@ Y = [sin(yaw), cos(yaw)]_pred · [sin(yaw), cos(yaw)]_gt
 ```
 
 If the yaw directions align, yawness is high.
+If the yaw directions disagree, yawness is low.
+
+Our simple understanding:
+
+```text
+yawness: "Does this box face the right direction?"
+```
+
+Centerness mainly helps position quality.
+Yawness helps orientation quality.
+
+The paper trains these quality scores with:
+
+```text
+L = λ1 CE(Y_pred, Y) + λ2 Focal(C_pred, C)
+```
+
+Ablation understanding:
+
+- Centerness reduces distance error.
+- But centerness alone can hurt orientation error.
+- Yawness helps compensate for that.
+- Together, centerness and yawness improve detection ranking and also help tracking metrics.
 
 ## 3. Decoupled attention
 
