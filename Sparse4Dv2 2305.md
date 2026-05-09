@@ -42,6 +42,7 @@ updated: 2026-05-08
 tags:
   - paper
 related:
+  - "[[Sparse4Dv3 2311]]"
   - "[[Sparse4D 2211]]"
   - "[[Deformable DETR 2010]]"
   - "[[SparseDrive 2405]]"
