@@ -277,19 +277,17 @@ To match DDPM, DDIM must also match the reverse variance and stochastic noise in
 
 ## Mental model
 
-DDPM:
+DDPM learns to reverse every small noising step:
 
-```text
-learn to reverse every small noising step
-x_T -> x_{T-1} -> ... -> x_0
-```
+$$
+x_T \to x_{T-1} \to \cdots \to x_0.
+$$
 
-DDIM:
+DDIM predicts \(x_0\) at each step, then jumps to a chosen earlier noise level:
 
-```text
-at each step, predict x_0, then jump to a chosen earlier noise level
-x_T -> x_s -> ... -> x_0
-```
+$$
+x_T \to x_s \to \cdots \to x_0.
+$$
 
 The same neural network can be used in both because it predicts the noise at arbitrary timestep \(t\).
 
