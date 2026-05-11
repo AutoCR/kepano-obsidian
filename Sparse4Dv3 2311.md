@@ -48,6 +48,7 @@ related:
   - "[[Deformable DETR 2010]]"
   - "[[SparseDrive 2405]]"
   - "[[SparseDriveV2 2603]]"
+  - "[[VAD 2303]]"
 ---
 
 One sentence: **Sparse4D v3 improves Sparse4D v2 for camera-only 3D detection, then turns it into a simple end-to-end tracker by carrying IDs on temporal instances.**
