@@ -153,7 +153,7 @@ $$
 
 ### 7. DDIM sampling update
 
-Given a chosen previous timestep \(s<t\), DDIM uses:
+Given a chosen previous timestep $s<t$, DDIM uses:
 
 $$
 x_s = \sqrt{\bar\alpha_s}\hat x_0
@@ -162,7 +162,7 @@ x_s = \sqrt{\bar\alpha_s}\hat x_0
 \qquad z\sim\mathcal N(0,I).
 $$
 
-For deterministic DDIM, \(\eta=0\), so \(\sigma_t=0\):
+For deterministic DDIM, $\eta=0$, so $\sigma_t=0$:
 
 $$
 x_s = \sqrt{\bar\alpha_s}\hat x_0
@@ -173,8 +173,8 @@ $$
 
 DDPM has two processes:
 
-1. **Forward process** \(q\): fixed, not learned. It slowly corrupts data into Gaussian noise.
-2. **Reverse process** \(p_\theta\): learned. It starts from Gaussian noise and denoises back to data.
+1. **Forward process** $q$: fixed, not learned. It slowly corrupts data into Gaussian noise.
+2. **Reverse process** $p_\theta$: learned. It starts from Gaussian noise and denoises back to data.
 
 The forward process is designed so that after many small noising steps,
 
@@ -196,7 +196,7 @@ $$
 
 The most important training insight is that the hard variational objective reduces to a simple supervised regression problem:
 
-> Given noisy \(x_t\) and timestep \(t\), predict the exact Gaussian noise \(\epsilon\) that was added to \(x_0\).
+> Given noisy $x_t$ and timestep $t$, predict the exact Gaussian noise $\epsilon$ that was added to $x_0$.
 
 ## Why the loss becomes noise prediction
 
@@ -212,7 +212,7 @@ $$
 \left\|\tilde\mu_t(x_t,x_0)-\mu_\theta(x_t,t)\right\|^2.
 $$
 
-The true posterior mean can be written using the true noise \(\epsilon\), while the model mean is written using predicted noise \(\epsilon_\theta\). Therefore mean matching becomes noise matching:
+The true posterior mean can be written using the true noise $\epsilon$, while the model mean is written using predicted noise $\epsilon_\theta$. Therefore mean matching becomes noise matching:
 
 $$
 \left\|\epsilon-\epsilon_\theta(x_t,t)\right\|^2.
@@ -222,17 +222,17 @@ This is why DDPM training is simple even though the underlying model is a variat
 
 ## DDPM vs DDIM
 
-DDIM, **Denoising Diffusion Implicit Model**, usually uses the same trained noise predictor \(\epsilon_\theta(x_t,t)\) as DDPM, but changes the sampling trajectory.
+DDIM, **Denoising Diffusion Implicit Model**, usually uses the same trained noise predictor $\epsilon_\theta(x_t,t)$ as DDPM, but changes the sampling trajectory.
 
 | Aspect | DDPM | DDIM |
 |---|---|---|
 | Training objective | Usually same noise-prediction loss | Usually reuses DDPM-trained model |
 | Reverse process | Markovian | Non-Markovian |
-| Sampling step | Usually \(t\to t-1\) | Can jump \(t\to s\), where \(s<t\) |
-| Randomness | Stochastic ancestral sampling | Can be deterministic if \(\eta=0\) |
+| Sampling step | Usually $t\to t-1$ | Can jump $t\to s$, where $s<t$ |
+| Randomness | Stochastic ancestral sampling | Can be deterministic if $\eta=0$ |
 | Speed | Often many steps | Often fewer steps |
-| Same initial noise gives same output? | Usually no | Yes when \(\eta=0\) |
-| Main idea | Learn reverse Gaussian transitions | Predict \(x_0\) and jump along a chosen schedule |
+| Same initial noise gives same output? | Usually no | Yes when $\eta=0$ |
+| Main idea | Learn reverse Gaussian transitions | Predict $x_0$ and jump along a chosen schedule |
 
 ### How DDIM skips steps
 
@@ -242,7 +242,7 @@ $$
 \hat x_0=\frac{x_t-\sqrt{1-\bar\alpha_t}\epsilon_\theta(x_t,t)}{\sqrt{\bar\alpha_t}}.
 $$
 
-Then choose any earlier timestep \(s<t\) and construct \(x_s\) directly:
+Then choose any earlier timestep $s<t$ and construct $x_s$ directly:
 
 $$
 x_s \approx \sqrt{\bar\alpha_s}\hat x_0 + \sqrt{1-\bar\alpha_s}\epsilon_\theta(x_t,t).
@@ -264,8 +264,8 @@ $$
 
 Not necessarily. Using all timesteps only makes the timestep schedule the same.
 
-- **Deterministic DDIM** with \(\eta=0\) is still different from DDPM because it does not inject fresh Gaussian noise at every step.
-- **Stochastic DDIM** with \(\eta=1\), all timesteps, and posterior variance \(\tilde\beta_t\) can match DDPM-style ancestral sampling.
+- **Deterministic DDIM** with $\eta=0$ is still different from DDPM because it does not inject fresh Gaussian noise at every step.
+- **Stochastic DDIM** with $\eta=1$, all timesteps, and posterior variance $\tilde\beta_t$ can match DDPM-style ancestral sampling.
 
 So:
 
@@ -283,13 +283,13 @@ $$
 x_T \to x_{T-1} \to \cdots \to x_0.
 $$
 
-DDIM predicts \(x_0\) at each step, then jumps to a chosen earlier noise level:
+DDIM predicts $x_0$ at each step, then jumps to a chosen earlier noise level:
 
 $$
 x_T \to x_s \to \cdots \to x_0.
 $$
 
-The same neural network can be used in both because it predicts the noise at arbitrary timestep \(t\).
+The same neural network can be used in both because it predicts the noise at arbitrary timestep $t$.
 
 ---
 
@@ -354,7 +354,7 @@ $$
 \log q(x_{t-1}\mid x_0).
 $$
 
-Summing over \(t=2,\ldots,T\) telescopes and gives:
+Summing over $t=2,\ldots,T$ telescopes and gives:
 
 $$
 \sum_{t=1}^T\log q(x_t\mid x_{t-1})
@@ -395,7 +395,7 @@ $$
 \right].
 $$
 
-Taking the negative gives \(L_{\text{vlb}}\).
+Taking the negative gives $L_{\text{vlb}}$.
 
 # Appendix B: KL divergence between two Gaussians
 
@@ -419,7 +419,7 @@ $$
 \frac12(x-\mu)^T\Sigma^{-1}(x-\mu).
 $$
 
-Substituting and taking expectations under \(q\) gives:
+Substituting and taking expectations under $q$ gives:
 
 $$
 D_{\mathrm{KL}}(q\Vert p)=
@@ -465,7 +465,7 @@ $$
 q(x_{t-1}\mid x_t,x_0)\propto q(x_t\mid x_{t-1})q(x_{t-1}\mid x_0).
 $$
 
-Let \(z=x_{t-1}\). Then:
+Let $z=x_{t-1}$. Then:
 
 $$
 q(x_t\mid z)=\mathcal N(x_t;\sqrt{\alpha_t}z,\beta_tI),
@@ -477,7 +477,7 @@ $$
 q(z\mid x_0)=\mathcal N(z;\sqrt{\bar\alpha_{t-1}}x_0,(1-\bar\alpha_{t-1})I).
 $$
 
-Ignoring constants independent of \(z\):
+Ignoring constants independent of $z$:
 
 $$
 \log q(z\mid x_t,x_0)
@@ -485,7 +485,7 @@ $$
 -\frac{1}{2(1-\bar\alpha_{t-1})}\|z-\sqrt{\bar\alpha_{t-1}}x_0\|^2+C.
 $$
 
-Collect terms in \(z\):
+Collect terms in $z$:
 
 $$
 \log q(z\mid x_t,x_0)=
@@ -505,9 +505,9 @@ b=\frac{\sqrt{\alpha_t}}{\beta_t}x_t+
 \frac{\sqrt{\bar\alpha_{t-1}}}{1-\bar\alpha_{t-1}}x_0.
 $$
 
-Complete the square. The variance is \(A^{-1}I\), and the mean is \(A^{-1}b\).
+Complete the square. The variance is $A^{-1}I$, and the mean is $A^{-1}b$.
 
-Simplify \(A\):
+Simplify $A$:
 
 $$
 A=\frac{1-\bar\alpha_t}{\beta_t(1-\bar\alpha_{t-1})}.
