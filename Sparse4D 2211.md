@@ -45,6 +45,7 @@ related:
   - "[[Deformable DETR 2010]]"
   - "[[SparseDrive 2405]]"
   - "[[SparseDriveV2 2603]]"
+  - "[[DriveTransformer 2503]]"
   - "[[mAP]]"
 ---
 
