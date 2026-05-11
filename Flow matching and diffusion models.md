@@ -3,7 +3,7 @@ categories:
   - "[[Evergreen]]"
 title: "Flow matching and diffusion models"
 created: 2026-04-22
-updated: 2026-04-22
+updated: 2026-05-10
 tags:
   - 0🌲
   - generative-models
@@ -15,6 +15,7 @@ sources:
 related:
   - "[[VAE and Diffusion]]"
   - "[[Diffusion]]"
+  - "[[DDPM]]"
   - "[[Gaussian probability path]]"
   - "[[Adaptive Time Step Flow Matching 2602]]"
   - "[[GoalFlow 2503]]"

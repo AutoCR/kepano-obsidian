@@ -36,10 +36,12 @@ method:
   - iterative box refinement
 task: camera-only multi-view 3D object detection
 created: 2026-05-07
-updated:
+updated: 2026-05-08
 tags:
   - paper
 related:
+  - "[[Sparse4Dv3 2311]]"
+  - "[[Sparse4Dv2 2305]]"
   - "[[Deformable DETR 2010]]"
   - "[[SparseDrive 2405]]"
   - "[[SparseDriveV2 2603]]"
@@ -96,6 +98,77 @@ Default settings:
 | image size | 640 × 1600 |
 | default backbone | ResNet101 |
 
+## How initial 3D anchors are created
+
+The model starts from a fixed set of sparse 3D anchors.
+
+The paper initializes the anchor centers by running K-Means on training-set 3D box centers.
+
+So the process is:
+
+1. Collect ground-truth 3D object centers from the training set.
+2. Run K-Means clustering.
+3. Use the cluster centers as the initial anchor centers.
+4. Use one learnable instance feature for each anchor.
+5. Refine the anchors through several decoder stages.
+
+The full anchor format is:
+
+```text
+{x, y, z, ln w, ln h, ln l, sin yaw, cos yaw, vx, vy, vz}
+```
+
+The center part `x, y, z` comes from K-Means.
+
+The other initial values are fixed:
+
+```text
+ln w = 1
+ln h = 1
+ln l = 1
+sin yaw = 0
+cos yaw = 1
+vx = 0
+vy = 0
+vz = 0
+```
+
+Mental model:
+
+> Each initial anchor is a 3D object hypothesis. It asks: “Maybe there is an object around this common 3D location. Let me look at the images and refine myself.”
+
+## Anchor embedding
+
+The raw anchor parameters are numbers.
+
+The model converts them into an anchor embedding, usually through a small projection or MLP.
+
+```text
+11D anchor box parameters
+        ↓
+anchor encoder / MLP
+        ↓
+C-dimensional anchor embedding
+```
+
+This embedding is added to the instance feature.
+
+```text
+instance feature + anchor embedding
+```
+
+This makes the query geometry-aware.
+
+Without anchor embedding, the query only asks:
+
+> “What object do I see?”
+
+With anchor embedding, the query asks:
+
+> “I am a 3D box at this location, with this size, yaw, and velocity. What image evidence supports me?”
+
+Sparse4D uses this geometry-aware feature for self-attention, learnable keypoint generation, and aggregation weight prediction.
+
 # Deformable 4D aggregation
 
 ![[Attachments/sparse4d-2211/figure3-deformable-4d-aggregation.png]]
@@ -140,6 +213,32 @@ Each 4D keypoint is projected into each camera image.
 
 Then the model samples image features by bilinear interpolation.
 
+Bilinear sampling means the projected point does not need to land exactly on an integer feature-map cell.
+
+Example:
+
+```text
+projected coordinate = (10.3, 20.7)
+```
+
+The model uses the four nearby feature cells:
+
+```text
+(10, 20), (11, 20), (10, 21), (11, 21)
+```
+
+Then it computes a weighted average.
+
+```text
+sampled_feature =
+    w1 * feature(10, 20)
+  + w2 * feature(11, 20)
+  + w3 * feature(10, 21)
+  + w4 * feature(11, 21)
+```
+
+This lets the model read image evidence at the exact projected 2D location of a 3D keypoint.
+
 For one anchor, the sampled features cover:
 
 - multiple keypoints
@@ -162,6 +261,35 @@ Finally, it fuses features across keypoints.
 The output is a stronger instance feature for the anchor.
 
 This feature is used to refine the 3D box.
+
+## Relation to Deformable DETR deformable attention
+
+Sparse4D deformable aggregation is related to [[Deformable DETR 2010]].
+
+Both methods use the same sparse-sampling idea:
+
+```text
+query / anchor → choose a few useful image locations → sample features → weighted sum
+```
+
+But the sampling source is different.
+
+| Item | Deformable DETR | Sparse4D |
+|---|---|---|
+| Query | 2D object query | 3D anchor instance |
+| Reference | 2D reference point | 3D anchor box and keypoints |
+| Sampling point | learned 2D offset around reference point | projected 3D/4D keypoint in camera views |
+| Feature source | multi-scale image feature maps | multi-view, multi-scale, multi-timestamp image features |
+| Geometry | mostly image-plane geometry | explicit 3D box, camera projection, velocity, ego-motion |
+| Fusion | attention-weighted sampled points | hierarchical aggregation over view, scale, time, and keypoints |
+
+Short version:
+
+> Deformable attention learns where to look in 2D. Deformable 4D aggregation uses 3D geometry to know where the object parts should appear in cameras and time.
+
+This is why Sparse4D is more suitable for camera-only 3D detection.
+
+It turns each 3D anchor into a geometry-guided query.
 
 # Depth reweight module
 
