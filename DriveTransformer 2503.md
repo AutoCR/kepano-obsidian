@@ -151,6 +151,49 @@ This is cheaper than storing dense BEV history and also keeps object/map/ego inf
 - **Online mapping** replicates each map query into point-level queries during Sensor Cross Attention, so points in the same polyline can retrieve different local image features.
 - **Planning** uses the ego query with multiple mode embeddings for multi-mode trajectory prediction.
 
+## Planning head
+
+The planning head itself is relatively simple. The important part is that its input, the **ego query**, has already interacted with sensor tokens, historical task queries, agent queries, and map queries inside the unified Transformer.
+
+The paper models ego planning as a **multi-modal trajectory prediction** problem to avoid mode averaging. It divides ego trajectories into six behavior modes:
+
+1. Go straight
+2. Stop
+3. Left turn
+4. Sharp left turn
+5. Right turn
+6. Sharp right turn
+
+For each mode, the model builds a mode embedding and adds it to the ego feature:
+
+```text
+ego feature + go-straight embedding      → trajectory 1
+ego feature + stop embedding             → trajectory 2
+ego feature + left-turn embedding        → trajectory 3
+ego feature + sharp-left-turn embedding  → trajectory 4
+ego feature + right-turn embedding       → trajectory 5
+ego feature + sharp-right-turn embedding → trajectory 6
+```
+
+So the planning head outputs:
+
+```text
+6 candidate ego trajectories + 6 mode confidence scores
+```
+
+During training, it uses a **winner-take-all** style loss: only the ground-truth mode's trajectory is used for regression loss, and a classification head learns to predict the current mode. During inference, the trajectory with the highest mode confidence is selected for evaluation or execution.
+
+My reading: the planning head is **not the main novelty** of DriveTransformer. It is a small 6-mode regression/classification head on top of the ego query. This is much simpler than [[Hydra-MDP 2406]] or [[SparseDriveV2 2603]], which formulate planning as large-scale trajectory scoring over a much larger candidate set.
+
+A compact comparison:
+
+| Method | Planning style |
+|---|---|
+| DriveTransformer | 6-mode trajectory regression + mode classification |
+| [[Hydra-MDP 2406]] | fixed trajectory vocabulary scoring with multi-target distillation |
+| [[SparseDriveV2 2603]] | factorized path × velocity vocabulary scoring |
+| [[SparseDrive 2405]] | sparse scene representation + parallel motion planner |
+
 # Results
 
 ## Bench2Drive closed-loop
