@@ -52,6 +52,7 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[SparseDrive 2405]]"
   - "[[Hydra-MDP 2406]]"
+  - "[[VAD 2303]]"
 ---
 
 One-line takeaway: **ComDrive extends the selection-based E2E recipe with diffusion generation and comfort-aware scoring, explicitly targeting smooth, temporally consistent driving rather than only safety.**

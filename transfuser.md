@@ -26,6 +26,8 @@ created: 2026-03-13
 updated:
 tags:
   - paper
+related:
+  - "[[VAD 2303]]"
 ---
 ![[Pasted image 20260313171714.png]]
 分别使用两个RegNetY-3.2GF作为backbone编码Lidar和cam特征，这两个backbone参数不一样，cam的regnet用imgnet数据预训练作为初值，lidar没有初值，然后在端到端训练。
