@@ -108,6 +108,8 @@ surrounding-agent future trajectories
 
 This is why it is called “parallel”. Motion prediction and planning are not separated into two sequential modules.
 
+![[SparseDrive Figure 4 parallel motion planner.png]]
+
 # Ego instance initialization
 
 SparseDrive explicitly builds one ego instance:
