@@ -69,6 +69,8 @@ SparseDrive 有三个主要部分：
 2. **Symmetric sparse perception**
 3. **Parallel motion planner**
 
+![[SparseDrive Figure 2 overview.png]]
+
 Sparse perception 输出两类 sparse instances：
 
 - **Agent instances**：动态物体，例如 car、truck、pedestrian。
@@ -86,6 +88,8 @@ anchor:  [B, Nd, 11]
 ```text
 [x, y, z, log(w), log(l), log(h), sin(yaw), cos(yaw), vx, vy, vz]
 ```
+
+![[SparseDrive Figure 3 symmetric sparse perception.png]]
 
 # Planning model
 
