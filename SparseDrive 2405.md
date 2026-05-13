@@ -44,6 +44,7 @@ tags:
 related:
   - "[[Sparse4D 2211]]"
   - "[[SparseDriveV2 2603]]"
+  - "[[MapTR 2208]]"
   - "[[Hydra-MDP 2406]]"
   - "[[transfuser]]"
   - "[[TransFuser 2205]]"

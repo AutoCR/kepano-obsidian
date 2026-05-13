@@ -40,7 +40,7 @@ method:
   - metric distillation
 task: end-to-end autonomous driving planning
 created: 2026-04-20
-updated:
+updated: 2026-05-13
 tags:
   - paper
 related:
@@ -51,6 +51,7 @@ related:
   - "[[SparseDrive 2405]]"
   - "[[FeaXDrive 2604]]"
   - "[[DriveTransformer 2503]]"
+  - "[[MapTR 2208]]"
 ---
 
 一句话：**这篇论文的核心观点是，端到端规划不一定需要动态生成轨迹；只要候选轨迹空间足够稠密、并且打分足够高效，纯 scoring-based planning 也可以做到 SOTA。**
