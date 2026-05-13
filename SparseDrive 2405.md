@@ -24,6 +24,7 @@ keywords:
   - sparse-scene-representation
   - planning
   - motion-prediction
+  - ego-status
   - nuscenes
 status:
   - read
@@ -33,10 +34,11 @@ dataset:
 method:
   - sparse scene representation
   - parallel motion planner
+  - ego instance initialization
   - collision-aware rescore
 task: end-to-end autonomous driving
 created: 2026-04-20
-updated:
+updated: 2026-05-13
 tags:
   - paper
 related:
@@ -49,130 +51,342 @@ related:
   - "[[DriveTransformer 2503]]"
 ---
 
-一句话：**SparseDrive 是一个以 sparse scene representation 为核心的端到端自动驾驶框架，把 detection / tracking / online mapping / motion prediction / planning 统一到同一个 sparse-centric 范式里。**
+一句话：**SparseDrive 是一个 sparse-centric 端到端自动驾驶系统。它用 sparse instances 表示动态车辆、地图元素和 ego vehicle，并用 parallel motion planner 同时做 motion prediction 和 planning。**
 
-# 核心 takeaways
+# Core takeaways
 
-- SparseDrive 关注的不只是 planning，而是一个更完整的端到端 AD 系统。
-- 它的关键主张是：
-  - BEV 特征计算昂贵；
-  - prediction 和 planning 的设计也常常不够高效；
-  - 因此应该把整个系统重构为 **sparse-centric** 形式。
-- 论文提出两个核心模块：
-  1. **symmetric sparse perception module**
-  2. **parallel motion planner**
-- planning 部分使用 **hierarchical planning selection strategy**，并带有 **collision-aware rescore module** 来提升安全性。
+- SparseDrive 不依赖 dense BEV feature 作为主要中间表示。
+- 它把 detection、tracking、online mapping、motion prediction 和 planning 放进一个 sparse instance framework。
+- Planning 不是直接回归一条轨迹。它先生成多模态候选轨迹，再选择一条安全轨迹。
+- Ego vehicle 也被建模成一个 instance。这个设计很重要。
+- 官方代码中，CAN-bus ego status 主要用于训练监督。它不是 inference 时的直接输入。
 
-# 模型结构
+# Model structure
 
-## 1. 整体框架
+SparseDrive 有三个主要部分：
 
-SparseDrive 大致分成三层：
+1. **Multi-view image encoder**
+2. **Symmetric sparse perception**
+3. **Parallel motion planner**
 
-1. multi-view image encoder
-2. symmetric sparse perception
-3. parallel motion planner
+Sparse perception 输出两类 sparse instances：
 
-README 对它的概括很直接：
-- 先编码多视角图像；
-- 再学习 sparse scene representation；
-- 最后并行执行 motion prediction 与 planning。
+- **Agent instances**：动态物体，例如 car、truck、pedestrian。
+- **Map instances**：静态地图元素，例如 divider、boundary、pedestrian crossing。
 
-## 2. sparse perception
+每个 agent instance 有：
 
-论文和 README 都强调，它用一个对称结构统一：
-- detection
-- tracking
-- online mapping
+```text
+feature: [B, Nd, C]
+anchor:  [B, Nd, 11]
+```
 
-也就是说，SparseDrive 的重点不是单独造一个 planner，而是想把环境表示和下游任务统一起来。
+其中 anchor 的 11 维是：
 
-## 3. parallel motion planner
+```text
+[x, y, z, log(w), log(l), log(h), sin(yaw), cos(yaw), vx, vy, vz]
+```
 
-SparseDrive 认为：
-- motion prediction 和 planning 有很强相似性；
-- 因此可以做并行设计。
+# Planning model
 
-planning 不是简单单峰回归，而是一个小规模多模态候选选择问题，然后再通过层级选择与 rescore 得到最终轨迹。
+SparseDrive 的 planner 叫 **Parallel Motion Planner**。
 
-## 4. 安全机制
+它的输入是：
 
-SparseDrive 的 planning 里一个很重要的部分是：
-- **collision-aware rescore**
+```text
+agent instances
++ map instances
++ ego instance
+```
 
-这意味着它会对候选轨迹根据碰撞风险进行再打分，而不是只依赖 imitation / regression 输出本身。
+它同时输出：
 
-这一点和后续 Hydra-MDP、SparseDriveV2 的“metric-aware / score-aware”路线是相关的，但 SparseDrive 更像显式后处理安全筛选。
+```text
+surrounding-agent future trajectories
++ ego future planning trajectory
+```
 
-# 结果与定位
+This is why it is called “parallel”. Motion prediction and planning are not separated into two sequential modules.
 
-SparseDrive 的主结果主要基于 **nuScenes**，而不是 NAVSIM / Bench2Drive。
+# Ego instance initialization
 
-README 中强调：
-- 在 detection / tracking / mapping / motion / planning 多任务上都取得强结果；
-- 尤其 planning 的 collision rate 很低；
-- 同时训练和推理效率较高。
+SparseDrive explicitly builds one ego instance:
 
-它更像一篇“完整系统设计”的论文，而不是只盯住 planning leaderboard 的论文。
+```text
+ego_feature: [B, 1, 256]
+ego_anchor:  [B, 1, 11]
+```
 
-# 和 SparseDriveV2 的关系
+## Ego feature
 
-这是最重要的阅读关系。
+The ego feature is initialized from the smallest front-camera feature map.
 
-## 相同点
+In the official code:
 
-- 两篇都来自同一条研究脉络；
-- 都是 end-to-end autonomous driving；
-- 都非常在意 planning 的安全与效率；
-- 都不是“直接回归一条轨迹就结束”的简单范式。
+```python
+feature_maps_inv = feature_maps_format(feature_maps, inverse=True)
+feature_map = feature_maps_inv[0][-1][:, 0]
+ego_feature = self.ego_feature_encoder(feature_map)
+ego_feature = ego_feature.unsqueeze(1).squeeze(-1).squeeze(-1)
+```
 
-## 最大区别
+The first camera is `CAM_FRONT` in the nuScenes converter. So this uses the front camera.
 
-### SparseDrive
-- 核心是 **sparse scene representation**；
-- 目标是统一 perception + planning；
-- 更系统、更全栈。
+Typical dimension change:
 
-### SparseDriveV2
-- 核心是 **factorized trajectory vocabulary + scalable scoring**；
-- 目标是把 planning candidate space 做大并高效筛选；
-- 更 planner-centric。
+```text
+front FPN feature: [B, 256, 8, 22]
+Conv stride 1:     [B, 256, 8, 22]
+Conv stride 2:     [B, 256, 4, 11]
+AvgPool:           [B, 256, 1, 1]
+Final ego token:   [B, 1, 256]
+```
 
-一句话总结：
-- **SparseDrive**：先把“场景”表示好，再规划；
-- **SparseDriveV2**：先把“动作空间”建得足够密，再高效打分。
+The paper says the ego car itself is in the camera blind area. So the ego feature is not a crop of the ego car. It is a scene-context feature from the front view.
 
-# 和 Hydra-MDP 的关系
+## Ego anchor
 
-SparseDrive 与 Hydra-MDP 的差别也很明显：
+The ego anchor is a fixed box prior:
 
-### SparseDrive
-- 强调 scene representation；
-- planning 候选规模较小；
-- 带 collision-aware rescore。
+```text
+x = 0
+y = 0.5
+size = ego vehicle size
+yaw ≈ π/2
+velocity = 0 at the first frame
+```
 
-### Hydra-MDP
-- 强调 fixed trajectory vocabulary；
-- 用 human teacher + rule-based teacher 进行 hydra-distillation；
-- 更像 score-based planning over monolithic anchors。
+Shape:
 
-所以从研究脉络上看，大致可以理解成：
+```text
+ego_anchor: [B, 1, 11]
+```
 
-- **SparseDrive**：系统层面的 sparse end-to-end AD
-- **Hydra-MDP**：teacher-distilled score-based multimodal planning
-- **SparseDriveV2**：factorized dense-vocabulary scoring-based planning
+If a previous predicted ego status exists, the code does:
 
-# 我的理解
+```python
+ego_anchor[..., VY] = prev_ego_status[..., 6]
+```
 
-SparseDrive 更像是这一系列工作的“世界观起点”：
-- 自动驾驶端到端系统应该减少密集中间表示，转向 sparse representation；
-- planning 应该显式关注安全，不只是 imitation。
+This means:
 
-而后续 Hydra-MDP / SparseDriveV2 则是在 planning 这一块继续深化：
-- Hydra-MDP 深化了多目标蒸馏；
-- SparseDriveV2 深化了 candidate space 表示与筛选机制。
+```text
+use previous predicted forward velocity to initialize current ego anchor velocity
+```
 
-# 关联阅读
+It looks confusing because `prev_ego_status[..., 6]` is the first velocity component in the ego-status vector, but it is written into `VY` of the anchor. This is probably due to coordinate convention: the ego car points along the model’s +Y direction.
+
+# Ego status and CAN bus
+
+The dataset builds a 10-D ego status from nuScenes CAN bus:
+
+```text
+acceleration:    3 dims
+rotation rate:   3 dims
+velocity:        3 dims
+steering angle:  1 dim
+```
+
+So:
+
+```text
+ego_status: [B, 10]
+```
+
+SparseDrive predicts this status with an auxiliary head:
+
+```python
+planning_status = self.plan_status_branch(ego_feature + ego_anchor_embed)
+```
+
+It is supervised by CAN-bus ego status during training:
+
+```python
+L1(predicted_status, data["ego_status"])
+```
+
+## Does it use real CAN-bus ego status during inference?
+
+In the official code, **no**.
+
+During inference:
+
+1. At the first frame, there is no previous status.
+2. The ego anchor uses the fixed zero-velocity prior.
+3. The network predicts ego status from the ego feature.
+4. The predicted status is cached.
+5. At the next frame, the previous predicted velocity is used in the ego anchor.
+
+So the loop is:
+
+```text
+frame t:
+front feature + ego anchor → predicted ego status
+
+frame t+1:
+front feature + previous predicted ego status → new ego status
+```
+
+It does not directly read real CAN-bus ego status as an inference input.
+
+# Is this good for closed-loop driving?
+
+For open-loop benchmark evaluation, this design is understandable. Directly using real ego speed and steering can give a strong shortcut. It may make comparison unfair.
+
+For closed-loop or real-world evaluation, real ego status is important.
+
+The planner should know:
+
+```text
+current speed
+acceleration
+yaw rate
+steering angle
+actual ego pose
+tracking error
+```
+
+The same camera image can require different plans at different speeds. A car at 2 m/s and a car at 15 m/s should not produce the same plan.
+
+So for real deployment, I would use real CAN/IMU/odometry ego status as model input.
+
+A simple design is:
+
+```text
+ego_status_embed = MLP(real_ego_status)
+ego_feature = ego_feature + ego_status_embed
+```
+
+Better training should include ego-status dropout or noise, so the model does not overfit to status only.
+
+Important rule:
+
+```text
+If real ego status is used during inference, it should also be used during training.
+```
+
+Using it only at inference creates train-test mismatch.
+
+# Spatial-temporal interaction
+
+After ego initialization, SparseDrive concatenates ego with agent instances:
+
+```text
+agent instances + ego instance
+```
+
+Then it uses three interaction blocks. Each block has:
+
+1. **Agent-temporal cross-attention**  
+   Each instance attends to its own history.
+
+2. **Agent-agent self-attention**  
+   Ego and other agents interact with each other.
+
+3. **Agent-map cross-attention**  
+   Ego and agents attend to sparse map instances.
+
+4. **FFN and normalization**
+
+The temporal memory queue length is 4 frames in the small config.
+
+# Planning output
+
+SparseDrive predicts multi-modal planning trajectories.
+
+In the small config:
+
+```text
+3 driving commands: left, right, straight
+6 planning modes per command
+6 future steps per trajectory
+2D point at each step
+```
+
+So the ego planning output is conceptually:
+
+```text
+[B, 3, 6, 6, 2]
+```
+
+The model also predicts scores for these candidates.
+
+# Hierarchical planning selection
+
+SparseDrive selects the final plan in three steps.
+
+## 1. Command selection
+
+It first selects trajectories for the current high-level command:
+
+```text
+left / right / straight
+```
+
+In nuScenes evaluation, this command comes from `gt_ego_fut_cmd`. In a real system, it should come from the route planner.
+
+## 2. Collision-aware rescore
+
+It checks ego candidate trajectories against predicted agent trajectories.
+
+If a candidate has high collision risk, its score is reduced. In the code, collided candidates can be set to score 0.
+
+## 3. Max-score selection
+
+The final trajectory is the highest-score remaining candidate:
+
+```text
+final_planning: [B, 6, 2]
+```
+
+# Relation to SparseDriveV2 and Hydra-MDP
+
+## SparseDrive
+
+- Main focus: sparse scene representation.
+- It is a full-stack system.
+- It unifies perception, prediction, and planning.
+- Planning candidates are relatively small.
+- Safety comes partly from collision-aware rescore.
+
+## Hydra-MDP
+
+- Main focus: fixed trajectory vocabulary.
+- It uses multi-target hydra distillation.
+- It is more planner-centric than SparseDrive.
+
+## SparseDriveV2
+
+- Main focus: dense factorized trajectory vocabulary.
+- It separates path anchors and velocity anchors.
+- It makes scoring-based planning more scalable.
+
+Simple summary:
+
+```text
+SparseDrive:   represent the scene sparsely, then plan.
+Hydra-MDP:     score fixed trajectory anchors with teacher distillation.
+SparseDriveV2: build a dense action space, then score it efficiently.
+```
+
+# My view
+
+SparseDrive is a strong system paper. Its most useful idea is not only sparse perception. The important planning idea is that ego should also be treated as an instance.
+
+The ego instance has:
+
+```text
+semantic context from the front camera
++ geometric ego anchor
++ temporal memory
++ auxiliary ego-status prediction
+```
+
+This makes planning more structured than direct trajectory regression.
+
+But for closed-loop or real-world use, I would add real ego status as an explicit input and train with it. The official design is better understood as a fair open-loop benchmark design, not the best deployment design.
+
+# Related notes
 
 - [[SparseDriveV2 2603]]
 - [[Hydra-MDP 2406]]
