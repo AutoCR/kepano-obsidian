@@ -48,6 +48,7 @@ tags:
   - autonomous-driving
   - online-mapping
 related:
+  - "[[MapTRv2 2308]]"
   - "[[Deformable DETR 2010]]"
   - "[[SparseDrive 2405]]"
   - "[[SparseDriveV2 2603]]"
