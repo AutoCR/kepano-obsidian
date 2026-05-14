@@ -35,12 +35,14 @@ method:
   - multi-scale deformable attention
 task: object detection
 created: 2026-05-06
-updated: 2026-05-06
+updated: 2026-05-13
 tags:
   - paper
   - object-detection
   - transformer
   - attention
+related:
+  - "[[MapTR 2208]]"
 ---
 
 # Deformable DETR 2010
