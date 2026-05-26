@@ -138,6 +138,9 @@ These papers are not always pure score-based methods, but they matter because th
 - **[[ReCogDrive 2506]]** — reinforced cognitive planning framework.  
   arXiv: [2506.08052](https://arxiv.org/abs/2506.08052)
 
+- **[[Flow Planner 2510]]** — flow-matching planner with trajectory tokens, interaction-aware fusion, and classifier-free guidance.  
+  arXiv: [2510.11083](https://arxiv.org/abs/2510.11083)
+
 - **[[GuideFlow 2511]]** — constraint-guided flow matching for planning.  
   arXiv: [2511.18729](https://arxiv.org/abs/2511.18729)
 

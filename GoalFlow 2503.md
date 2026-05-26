@@ -58,6 +58,7 @@ related:
   - "[[CdDrive 2602]]"
   - "[[SparseDrive 2405]]"
   - "[[transfuser]]"
+  - "[[Flow Planner 2510]]"
 ---
 
 One-line takeaway: **GoalFlow uses a selected goal point to guide flow matching, so the model can generate useful multimodal driving trajectories with few denoising steps.**
