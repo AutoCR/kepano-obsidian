@@ -45,7 +45,7 @@ method:
   - classifier-free guidance
 task: autonomous driving motion planning
 created: 2026-05-26
-updated:
+updated: 2026-05-26
 tags:
   - paper
 related:
@@ -132,6 +132,47 @@ $$
 $$
 
 The released config uses `cfg_weight: 1.8`, 4 midpoint ODE steps, and masks neighbor information for the unconditioned branch.
+
+# Multimodal sampling and trajectory selection
+Flow Planner does **not** include a Hydra-MDP / SparseDrive-style trajectory scoring head. It does not generate a candidate set and then rank candidates with a learned score. The official inference path samples one noisy trajectory tensor and returns one denoised ego plan:
+
+```python
+x_init = torch.randn((B, action_num, action_len, state_dim), device=self.device)
+sample = self.flow_ode.generate(x_init, self.decoder, ...)
+sample = assemble_actions(sample, future_len, action_len, action_overlap, state_dim, method)
+```
+
+In theory, the same scene can be repeated `K` times and inferred with different random initial noise to obtain multiple ego trajectory proposals:
+
+```text
+same scene C + noise sample 1 -> plan 1
+same scene C + noise sample 2 -> plan 2
+same scene C + noise sample 3 -> plan 3
+```
+
+This turns Flow Planner into a **proposal generator**. However, the released model still returns only one sample by default, and there is no built-in module for choosing among multiple samples.
+
+A practical multimodal extension would look like:
+
+```text
+repeat same scene K times
+-> sample K Flow Planner trajectories
+-> evaluate each trajectory with an external selector
+-> execute the best / safest / most comfortable one
+```
+
+Possible selector signals:
+- collision risk with agents,
+- drivable-area and lane compliance,
+- route progress,
+- comfort / jerk / curvature,
+- time-to-collision,
+- distance to static obstacles,
+- consistency with navigation command.
+
+CFG changes the diversity-quality tradeoff. Higher `cfg_weight` usually makes outputs more scene-conditioned and less diverse; lower `cfg_weight` can expose more modes but may reduce safety or route consistency.
+
+My interpretation: **Flow Planner can be used as a multimodal candidate generator, but trajectory selection must be added externally.** This would make it closer to score-based candidate planners, except the candidates come from a learned flow model rather than a fixed trajectory vocabulary.
 
 # How the final layer outputs the ego plan
 The final layer does **not** output ego planning tokens. It receives the fused ego planning tokens and turns each token into one trajectory segment.
