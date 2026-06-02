@@ -56,6 +56,7 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[GoalFlow 2503]]"
   - "[[HAD 2604]]"
+  - "[[Flow Planner 2510]]"
 ---
 
 One-line takeaway: **GuideFlow turns flow matching into a constraint-aware planner, directly enforcing safety and physical rules during generation instead of bolting them on afterward.**
