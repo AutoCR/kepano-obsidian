@@ -91,10 +91,10 @@ GoalFlow has three modules.
 
 The model scores each goal point with two scores.
 
-| Score | Meaning |
-|---|---|
+| Score          | Meaning                                                    |
+| -------------- | ---------------------------------------------------------- |
 | Distance score | How close the goal point is to the likely future endpoint. |
-| DAC score | Whether the goal point is inside the drivable area. |
+| DAC score      | Whether the goal point is inside the drivable area.        |
 
 The final selected goal point should be both likely and drivable.
 
