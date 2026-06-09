@@ -53,6 +53,7 @@ related:
   - "[[DriveCritic 2510]]"
   - "[[NVIDIA end-to-end autonomous driving papers on arXiv]]"
   - "[[NVIDIA end-to-end AV review 2023-now]]"
+  - "[[DriveAnchor 2606]]"
 ---
 
 One-line takeaway: **GTRS wins Navsim v2 by training a scorer that can judge both dense static trajectory vocabularies and dynamic diffusion proposals under harder sensor conditions.**

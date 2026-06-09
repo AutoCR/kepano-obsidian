@@ -57,6 +57,7 @@ related:
   - "[[GoalFlow 2503]]"
   - "[[HAD 2604]]"
   - "[[Flow Planner 2510]]"
+  - "[[DriveAnchor 2606]]"
 ---
 
 One-line takeaway: **GuideFlow turns flow matching into a constraint-aware planner, directly enforcing safety and physical rules during generation instead of bolting them on afterward.**

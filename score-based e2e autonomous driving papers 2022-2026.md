@@ -22,6 +22,7 @@ related:
   - "[[SparseDriveV2 2603]]"
   - "[[DiffusionDrive 2411]]"
   - "[[FeaXDrive 2604]]"
+  - "[[DriveAnchor 2606]]"
 ---
 
 # Score-based end-to-end autonomous driving papers (2022-2026)
@@ -163,6 +164,9 @@ These papers are not always pure score-based methods, but they matter because th
 - **[[FeaXDrive 2604]]** — feasibility-aware trajectory-centric diffusion planning.  
   arXiv: [2604.12656](https://arxiv.org/abs/2604.12656)
 
+- **[[DriveAnchor 2606]]** — anchor-conditioned flow matching with EF corridor guidance and zeroth-order RL safety fine-tuning.  
+  arXiv: [2606.00519](https://arxiv.org/abs/2606.00519)
+
 ## Timeline at a glance
 
 - **2022** — no clear Hydra-style score-based E2E planner is visible yet.
@@ -190,6 +194,7 @@ These papers are not always pure score-based methods, but they matter because th
 10. [[DiffusionDriveV2 2512]]
 11. [[HAD 2604]]
 12. [[RAPiD 2602]]
+13. [[DriveAnchor 2606]]
 
 ## Main takeaways
 
@@ -200,4 +205,4 @@ These papers are not always pure score-based methods, but they matter because th
 ## Related notes
 
 - Review note: [[score-based e2e autonomous driving review]]
-- Core paper anchors: [[Hydra-MDP 2406]], [[SparseDriveV2 2603]], [[DiffusionDrive 2411]], [[FeaXDrive 2604]]
+- Core paper anchors: [[Hydra-MDP 2406]], [[SparseDriveV2 2603]], [[DiffusionDrive 2411]], [[FeaXDrive 2604]], [[DriveAnchor 2606]]

@@ -53,6 +53,7 @@ related:
   - "[[score-based e2e autonomous driving review]]"
   - "[[DiffusionDrive 2411]]"
   - "[[HAD 2604]]"
+  - "[[DriveAnchor 2606]]"
 ---
 
 One-line takeaway: **DiffusionDriveV2 uses anchor-aware RL on top of truncated diffusion to preserve multimodality while sharply improving trajectory quality.**
