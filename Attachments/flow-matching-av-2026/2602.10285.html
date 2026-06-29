@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning</title>
+<!--Generated on Sat Feb 14 03:14:29 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<link href="/static/browse/0.3.4/css/arxiv-html-papers-20250916.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
+<script src="/static/browse/0.3.4/js/addons_new.js"></script>
+<script src="/static/browse/0.3.4/js/feedbackOverlay.js"></script>
+<base href="/html/2602.10285v2/"/></head>
+<body>
+<nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">I </span><span class="ltx_text ltx_font_smallcaps">Introduction</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">II </span><span class="ltx_text ltx_font_smallcaps">Related Works</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">III </span><span class="ltx_text ltx_font_smallcaps">Preliminaries</span></span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS1" title="In III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">III-A</span> </span><span class="ltx_text ltx_font_italic">Problem Statement</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS2" title="In III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">III-B</span> </span><span class="ltx_text ltx_font_italic">Motion Transformer Encoder</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS3" title="In III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">III-C</span> </span><span class="ltx_text ltx_font_italic">Variance-Adaptive Flow Matching</span></span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">IV </span><span class="ltx_text ltx_font_smallcaps">Methodology</span></span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS1" title="In IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">IV-A</span> </span><span class="ltx_text ltx_font_italic">Neural Network Architectures</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS2" title="In IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">IV-B</span> </span><span class="ltx_text ltx_font_italic">Training Procedure</span></span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">V </span><span class="ltx_text ltx_font_smallcaps">Experiments and Results</span></span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS1" title="In V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">V-A</span> </span><span class="ltx_text ltx_font_italic">Dataset and Evaluation Setup</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS2" title="In V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">V-B</span> </span><span class="ltx_text ltx_font_italic">Trajectory Output Visualizations</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3" title="In V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">V-C</span> </span><span class="ltx_text ltx_font_italic">Quantitative Comparison of Different Models</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS4" title="In V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">V-D</span> </span><span class="ltx_text ltx_font_italic">Analysis of Inference Time and Adaptive Integration</span></span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S6" title="In Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">VI </span><span class="ltx_text ltx_font_smallcaps">Conclusion and Future Work</span></span></a></li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_font_bold ltx_title_document" style="font-size:173%;">Adaptive Time Step Flow Matching 
+<br class="ltx_break"/>for Autonomous Driving Motion Planning</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ananya Trivedi<sup class="ltx_sup" id="id17.17.id1"><span class="ltx_text ltx_font_italic" id="id17.17.id1.1">∗1,2</span></sup>
+ Anjian Li<sup class="ltx_sup" id="id18.18.id2"><span class="ltx_text ltx_font_italic" id="id18.18.id2.1">1,3</span></sup>  Mohamed Elnoor<sup class="ltx_sup" id="id19.19.id3"><span class="ltx_text ltx_font_italic" id="id19.19.id3.1">1,4</span></sup>  Yusuf Umut Ciftci<sup class="ltx_sup" id="id20.20.id4"><span class="ltx_text ltx_font_italic" id="id20.20.id4.1">1,5</span></sup>  Avinash Singh<sup class="ltx_sup" id="id21.21.id5">1</sup>
+<br class="ltx_break"/> Jovin D’sa<sup class="ltx_sup" id="id22.22.id6">1</sup>  Sangjae Bae<sup class="ltx_sup" id="id23.23.id7">1</sup>  David Isele<sup class="ltx_sup" id="id24.24.id8">1</sup>  Taşkın Padır<sup class="ltx_sup" id="id25.25.id9">2</sup>  Faizan M. Tariq<sup class="ltx_sup" id="id26.26.id10"><span class="ltx_text ltx_font_italic" id="id26.26.id10.1">∗1</span></sup>
+</span><span class="ltx_author_notes">All work was done at HRI.<sup class="ltx_sup" id="id27.27.id1"><span class="ltx_text ltx_font_italic" id="id27.27.id1.1">1</span></sup>Honda Research Institute, San Jose, CA 95134, USA<sup class="ltx_sup" id="id28.28.id1"><span class="ltx_text ltx_font_italic" id="id28.28.id1.1">2</span></sup>Northeastern University, Boston, MA 02115, USA<sup class="ltx_sup" id="id29.29.id1"><span class="ltx_text ltx_font_italic" id="id29.29.id1.1">3</span></sup>Princeton University, Princeton, NJ 08544, USA<sup class="ltx_sup" id="id30.30.id1"><span class="ltx_text ltx_font_italic" id="id30.30.id1.1">4</span></sup>University of Maryland, College Park, MD 20742, USA<sup class="ltx_sup" id="id31.31.id1"><span class="ltx_text ltx_font_italic" id="id31.31.id1.1">5</span></sup>Stanford University, Stanford, CA 94305, USA<sup class="ltx_sup" id="id32.32.id1"><span class="ltx_text ltx_font_italic" id="id32.32.id1.1">∗</span></sup>Corr
+esponding authors: <a class="ltx_ref ltx_href ltx_font_typewriter" href="mailto:trivedi.ana@northeastern.edu" title="">trivedi.ana@northeastern.edu</a> &amp; <a class="ltx_ref ltx_href" href="mailto:faizan_tariq@honda-ri.com" title=""><span class="ltx_text ltx_font_typewriter" id="id33.33.1.id1">faizan_tariq@honda-ri.com</span>
+</a></span></span>
+</div>
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="id34.id1">Autonomous driving requires reasoning about interactions with surrounding traffic. A prevailing approach is large-scale imitation learning on expert driving datasets, aimed at generalizing across diverse real-world scenarios. For online trajectory generation, such methods must operate at real-time rates. Diffusion models require hundreds of denoising steps at inference, resulting in high latency. Consistency models mitigate this issue but rely on carefully tuned noise schedules to capture the multimodal action distributions common in autonomous driving. Adapting the schedule, typically requires expensive retraining. To address these limitations, we propose a framework based on conditional flow matching that jointly predicts future motions of surrounding agents and plans the ego trajectory in real time. We train a lightweight variance estimator that selects the number of inference steps online, removing the need for retraining to balance runtime and imitation learning performance. To further enhance ride quality, we introduce a trajectory post-processing step cast as a convex quadratic program, with negligible computational overhead. Trained on the Waymo Open Motion Dataset, the framework performs maneuvers such as lane changes, cruise control, and navigating unprotected left turns without requiring scenario-specific tuning. Our method maintains a 20 Hz update rate on an NVIDIA RTX 3070 GPU, making it suitable for online deployment. Compared to transformer, diffusion, and consistency model baselines, we achieve improved trajectory smoothness and better adherence to dynamic constraints. Experiment videos and code implementations can be found at <a class="ltx_ref ltx_href" href="https://flow-matching-self-driving.github.io/" title="">https://flow-matching-self-driving.github.io/</a></p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">I </span><span class="ltx_text ltx_font_smallcaps" id="S1.1.1">Introduction</span>
+</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">Autonomous driving in urban environments requires reasoning over a wide range of factors. For instance, navigating a crowded intersection may require anticipating whether other vehicles will yield for the ego to proceed. In such cases, the desired behavior can often be expressed as a set of interpretable rules that can be directly encoded into an online trajectory optimization framework <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib28" title="Slas: speed and lane advisory system for highway navigation">25</a>]</cite>. However, as the range of driving scenarios grows, the rule set can become increasingly unwieldy and hard to generalize.</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">Several large-scale, open-sourced datasets such as nuScenes <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib10" title="Nuscenes: a multimodal dataset for autonomous driving">2</a>]</cite> and Waymo Open Motion <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib11" title="Scalability in perception for autonomous driving: waymo open dataset">24</a>]</cite> capture diverse urban driving scenarios through rich sensor data, high-definition maps, and detailed agent trajectories. To mitigate the scalability limitations of rule-based planners, recent approaches have adopted imitation learning based on these datasets <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib13" title="Goalflow: goal-driven flow matching for multimodal trajectories generation in end-to-end autonomous driving">29</a>]</cite>. This entails training a deep neural network capable of handling a wide range of motion planning tasks.</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">Diffusion models have shown strong performance in robotic manipulation, where long-horizon planning is prioritized over fast reaction times <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib9" title="Diffusion policy: visuomotor policy learning via action diffusion">3</a>]</cite>. It has also been effectively applied to controllable traffic simulation <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib35" title="Guided conditional diffusion for controllable traffic simulation">33</a>]</cite> and open-loop robotic trajectory optimization <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib36" title="Diffusolve: diffusion-based solver for non-convex trajectory optimization">14</a>]</cite>. However, autonomous driving requires planners that operate at high frequencies to enable reactive decision-making. The need for potentially hundreds of denoising steps makes diffusion models impractical for real-time use <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib12" title="Diffusiondrive: truncated diffusion model for end-to-end autonomous driving">16</a>]</cite>.</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">Conditional flow matching has gained significant traction in the generative modeling community, with applications ranging from image generation to molecular design <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib3" title="Flow matching for generative modeling">17</a>, <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib6" title="NeuralPLexer3: physio-realistic biomolecular complex structure prediction with flow models">18</a>]</cite>. It involves training a neural network to predict a continuous velocity field that transforms a known base distribution, often a Gaussian, into the data distribution under a given conditional input. During inference, this velocity field is integrated forward in time to recover the predicted output. Recent applications to motion forecasting and planning have shown that even a small number of inference steps can produce high-quality trajectories <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib13" title="Goalflow: goal-driven flow matching for multimodal trajectories generation in end-to-end autonomous driving">29</a>, <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib1" title="Efficient trajectory forecasting and generation with conditional flow matching">31</a>]</cite>. Additionally, the number of inference steps does not need to be fixed during training. These properties make flow matching a strong and flexible candidate for motion planning tasks that demand both computational efficiency and behavioral diversity.</p>
+</div>
+<div class="ltx_para" id="S1.p5">
+<p class="ltx_p" id="S1.p5.1">In this paper, we propose a flow matching based motion planning framework that predicts the future motion of surrounding agents and plans the ego vehicle’s trajectory in response. Recent work by Hu et al. <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib5" title="Adaflow: imitation learning with variance-adaptive flow-based policies">10</a>]</cite> showed that variance in the training loss of flow-matching models correlates with integration error during inference. We leverage this observation and train an auxiliary feedforward network to estimate this variance. The predicted variance determines the integration step size during online inference, using finer steps in interactive urban scenarios where the model is less confident. This removes the need for manually tuning inference schedules.</p>
+</div>
+<figure class="ltx_figure" id="S1.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="121" id="S1.F1.g1" src="block_diagram.png" width="371"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S1.F1.2.1.1" style="font-size:90%;">Figure 1</span>: </span><span class="ltx_text" id="S1.F1.3.2" style="font-size:90%;">Our approach encodes past motion, map layout, and the desired pose using a transformer-based encoder. The resulting representation is passed to a flow matching network with an adaptive number of integration steps, followed by a lightweight post-processing step to generate a motion plan for the ego vehicle and future behavior predictions for surrounding agents.</span></figcaption>
+</figure>
+<div class="ltx_para" id="S1.p6">
+<p class="ltx_p" id="S1.p6.1">Since predicted trajectories may not perfectly match the expert demonstrations they are replicating, even small errors can often lead to motion that is dynamically inconsistent or uncomfortable for passengers <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib43" title="SafeFlowMatcher: safe and fast planning using flow matching with control barrier functions">30</a>]</cite>. To address this, we introduce a post-processing step posed as a convex quadratic program (QP) that improves both ride comfort and dynamic feasibility by smoothing the trajectory and enforcing physical constraints. This additional step runs in under one millisecond, thereby introducing negligible computational overhead. An overview of the proposed method is summarized in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.F1" title="Figure 1 ‣ I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+<div class="ltx_para" id="S1.p7">
+<p class="ltx_p" id="S1.p7.1">We evaluate our approach on the Waymo Open Motion Dataset and compare it against diffusion model, consistency model, and transformer model baselines. Our method consistently outperforms these approaches in terms of trajectory smoothness, goal-reaching performance, and generalization across diverse maneuvers. We further show how, by optimizing our implementation for the inference stage via TensorRT and ONNX deployment <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib30" title="Tensorrt inference with tensorflow">4</a>]</cite>, the complete pipeline can run at approximately 20 Hz, supporting real-time deployment. To summarize, our key contributions are:</p>
+<ul class="ltx_itemize" id="S1.I1">
+<li class="ltx_item" id="S1.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i1.p1">
+<p class="ltx_p" id="S1.I1.i1.p1.1">A flow-matching-based motion planner for interactive autonomous driving that handles diverse maneuvers without scenario-specific tuning and runs in real time.</p>
+</div>
+</li>
+<li class="ltx_item" id="S1.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i2.p1">
+<p class="ltx_p" id="S1.I1.i2.p1.1">A variance-guided inference mechanism that adaptively selects the number of neural network function evaluations, removing the need for tuning or retraining.</p>
+</div>
+</li>
+<li class="ltx_item" id="S1.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S1.I1.i3.p1">
+<p class="ltx_p" id="S1.I1.i3.p1.1">A lightweight post-processing module formulated as a convex QP that enhances ride comfort and dynamic feasibility with negligible overhead.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">II </span><span class="ltx_text ltx_font_smallcaps" id="S2.1.1">Related Works</span>
+</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">Traditional model-based planners formulate trajectory generation as a constrained optimization problem that incorporates vehicle dynamics and safety constraints <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib15" title="Autonomous vehicle overtaking in a bidirectional mixed-traffic setting">26</a>]</cite>. These methods typically rely on hand-crafted cost functions, which are difficult to tune and fail to generalize across diverse real-world scenarios <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib44" title="Chance-constrained convex mpc for robust quadruped locomotion under parametric and additive uncertainties">28</a>, <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib31" title="Data-driven sampling based stochastic mpc for skid-steer mobile robot navigation">27</a>]</cite>. Moreover, incorporating predictions of surrounding agents as additional costs or constraints significantly increases the computational complexity of the underlying optimization problem <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib45" title="The trajectron: probabilistic multi-agent trajectory modeling with dynamic spatiotemporal graphs">11</a>]</cite>.</p>
+</div>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">Recent work has explored generative models for imitating expert driving behavior directly from data. Variational Autoencoders (VAEs) generate motion plans by sampling from a learned latent space <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib39" title="Tutorial on variational autoencoders">6</a>]</cite>, while Generative Adversarial Networks (GANs) <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib38" title="Generative adversarial networks">7</a>]</cite> use a generator–discriminator setup to mimic expert behavior. Both these methods have been applied to motion planning and prediction tasks <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib20" title="Goal-gan: multimodal trajectory prediction based on goal position estimation">5</a>, <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib40" title="Genad: generative end-to-end autonomous driving">32</a>]</cite>. However, they often struggle to represent rare maneuvers present in expert demonstrations. Both VAEs and GANs can produce unrealistic outputs, often biased toward more frequent demonstrations and lacking coverage of less common but valid driving behaviors <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib41" title="Variational autoencoder for end-to-end control of autonomous driving with novelty detection and training de-biasing">1</a>]</cite>. Transformer-based models <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib24" title="Motion transformer with global intention localization and local movement refinement">20</a>]</cite> offer strong imitation learning performance but require large neural network architectures that may be too expensive for online replanning.</p>
+</div>
+<div class="ltx_para" id="S2.p3">
+<p class="ltx_p" id="S2.p3.1">Diffusion models <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib9" title="Diffusion policy: visuomotor policy learning via action diffusion">3</a>]</cite> have shown promise in planning and prediction but typically require hundreds of denoising steps, making them impractical for real-time use. To reduce this overhead, recent variants such as MotionDiffuser <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib22" title="3d diffuser actor: policy diffusion with 3d scene representations">12</a>]</cite> use fewer denoising steps by introducing trajectory priors built from clustered examples in the training set.
+This speeds up inference, but rare or long-tail behaviors are often missed, as they are typically absent from the clustered priors.</p>
+</div>
+<div class="ltx_para" id="S2.p4">
+<p class="ltx_p" id="S2.p4.1">To address the inference-time inefficiency of diffusion models, prior work used consistency models <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib42" title="Consistency models">22</a>]</cite> to develop an interactive motion planner for autonomous driving <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib2" title="Predictive planner for autonomous driving with consistency models">13</a>]</cite>. These models are trained with a fixed noise schedule and enforce consistency across denoising steps during inference. The method in  <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib2" title="Predictive planner for autonomous driving with consistency models">13</a>]</cite> was applied to the Waymo Open Motion Dataset, which contains diverse urban driving scenarios, and demonstrated strong performance using only four denoising steps at inference. To handle this scenario diversity, tuning the noise schedule was necessary to achieve an effective trade-off between inference speed and imitation learning accuracy. Each adjustment required retraining, thereby increasing model development time.</p>
+</div>
+<div class="ltx_para" id="S2.p5">
+<p class="ltx_p" id="S2.p5.1">Trajectory-Conditional Flow Matching (T-CFM) <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib1" title="Efficient trajectory forecasting and generation with conditional flow matching">31</a>]</cite> applies flow matching to aircraft trajectory forecasting and maze navigation tasks. It achieves state-of-the-art results with sampling speeds up to <math alttext="100{\times}" class="ltx_math_unparsed" display="inline" id="S2.p5.1.m1" intent=":literal"><semantics><mrow><mn>100</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">100{\times}</annotation></semantics></math> faster than diffusion and often requires only a single integration step. GoalFlow <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib13" title="Goalflow: goal-driven flow matching for multimodal trajectories generation in end-to-end autonomous driving">29</a>]</cite> extends this idea to autonomous driving by conditioning the vector field on a goal point along with LiDAR and camera inputs. However, it is limited to single-agent settings and requires a separate goal-generation module during training.</p>
+</div>
+<div class="ltx_para" id="S2.p6">
+<p class="ltx_p" id="S2.p6.1">In this paper, we use variance-adaptive flow matching to adjust the integration steps based on predicted uncertainty. This increases the number of function evaluations in regions where the model is less confident, enabling finer-grained updates in parts of the scene context that were underrepresented during training. It mitigates the bias of output trajectories toward scenes more frequently observed in the imitation learning dataset, as seen in VAEs and GANs, and avoids the reliance on fixed anchor trajectories in diffusion-based methods. This variable time-stepping scheme also eliminates the need for manually tuned noise schedules associated with consistency-based methods. Finally, by optimizing our implementation for runtime inference and incorporating a lightweight post-processing step, we achieve real-time performance unlike several transformer-based architectures with high computational overhead.</p>
+</div>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">III </span><span class="ltx_text ltx_font_smallcaps" id="S3.1.1">Preliminaries</span>
+</h2>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S3.SS1.5.1.1">III-A</span> </span><span class="ltx_text ltx_font_italic" id="S3.SS1.6.2">Problem Statement</span>
+</h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.22">Let <math alttext="t_{\text{curr}}" class="ltx_Math" display="inline" id="S3.SS1.p1.1.m1" intent=":literal"><semantics><msub><mi>t</mi><mtext>curr</mtext></msub><annotation encoding="application/x-tex">t_{\text{curr}}</annotation></semantics></math> denote the current time step. With a sampling interval of <math alttext="\Delta t=0.1\,\text{s}" class="ltx_Math" display="inline" id="S3.SS1.p1.2.m2" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow><mo>=</mo><mrow><mn>0.1</mn><mo lspace="0.170em" rspace="0em">​</mo><mtext>s</mtext></mrow></mrow><annotation encoding="application/x-tex">\Delta t=0.1\,\text{s}</annotation></semantics></math>, we use a past horizon of <math alttext="K=10" class="ltx_Math" display="inline" id="S3.SS1.p1.3.m3" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">K=10</annotation></semantics></math> steps, to collect state sequences for all agents. Each agent’s state at time <math alttext="t" class="ltx_Math" display="inline" id="S3.SS1.p1.4.m4" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is <math alttext="x_{t}\in\mathbb{R}^{n}" class="ltx_Math" display="inline" id="S3.SS1.p1.5.m5" intent=":literal"><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub><mo>∈</mo><msup><mi>ℝ</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">x_{t}\in\mathbb{R}^{n}</annotation></semantics></math>, where <math alttext="n=4" class="ltx_Math" display="inline" id="S3.SS1.p1.6.m6" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n=4</annotation></semantics></math> includes position and velocity components. The ego vehicle’s past trajectory is denoted <math alttext="S^{\text{past}}_{e}:=(x^{e}_{0}=x^{e}_{t_{\text{curr}}},\ldots,x^{e}_{K-1})" class="ltx_Math" display="inline" id="S3.SS1.p1.7.m7" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>:=</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>x</mi><mn>0</mn><mi>e</mi></msubsup><mo>=</mo><mrow><msubsup><mi>x</mi><msub><mi>t</mi><mtext>curr</mtext></msub><mi>e</mi></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>x</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>e</mi></msubsup></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S^{\text{past}}_{e}:=(x^{e}_{0}=x^{e}_{t_{\text{curr}}},\ldots,x^{e}_{K-1})</annotation></semantics></math>. Past trajectories for other agents are denoted <math alttext="S^{\text{past}}_{\text{obj}}:=\{S^{\text{past}}_{j}\}_{j=1}^{N_{o}}" class="ltx_Math" display="inline" id="S3.SS1.p1.8.m8" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>:=</mo><msubsup><mrow><mo stretchy="false">{</mo><msubsup><mi>S</mi><mi>j</mi><mtext>past</mtext></msubsup><mo stretchy="false">}</mo></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>N</mi><mi>o</mi></msub></msubsup></mrow><annotation encoding="application/x-tex">S^{\text{past}}_{\text{obj}}:=\{S^{\text{past}}_{j}\}_{j=1}^{N_{o}}</annotation></semantics></math>, where each <math alttext="S^{\text{past}}_{j}:=(x^{j}_{0}=x^{j}_{t_{\text{curr}}},\ldots,x^{j}_{K-1})" class="ltx_Math" display="inline" id="S3.SS1.p1.9.m9" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mi>j</mi><mtext>past</mtext></msubsup><mo>:=</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>x</mi><mn>0</mn><mi>j</mi></msubsup><mo>=</mo><mrow><msubsup><mi>x</mi><msub><mi>t</mi><mtext>curr</mtext></msub><mi>j</mi></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>x</mi><mrow><mi>K</mi><mo>−</mo><mn>1</mn></mrow><mi>j</mi></msubsup></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S^{\text{past}}_{j}:=(x^{j}_{0}=x^{j}_{t_{\text{curr}}},\ldots,x^{j}_{K-1})</annotation></semantics></math>. We include up to the closest <math alttext="N_{o}=5" class="ltx_Math" display="inline" id="S3.SS1.p1.10.m10" intent=":literal"><semantics><mrow><msub><mi>N</mi><mi>o</mi></msub><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">N_{o}=5</annotation></semantics></math> agents whose positions at <math alttext="t_{\text{curr}}" class="ltx_Math" display="inline" id="S3.SS1.p1.11.m11" intent=":literal"><semantics><msub><mi>t</mi><mtext>curr</mtext></msub><annotation encoding="application/x-tex">t_{\text{curr}}</annotation></semantics></math> lie within a fixed distance threshold <math alttext="R_{o}=10\,\text{m}" class="ltx_Math" display="inline" id="S3.SS1.p1.12.m12" intent=":literal"><semantics><mrow><msub><mi>R</mi><mi>o</mi></msub><mo>=</mo><mrow><mn>10</mn><mo lspace="0.170em" rspace="0em">​</mo><mtext>m</mtext></mrow></mrow><annotation encoding="application/x-tex">R_{o}=10\,\text{m}</annotation></semantics></math> from the ego. The map is represented as a tensor <math alttext="\mathcal{M}\in\mathbb{R}^{N_{m}\times L\times D}" class="ltx_Math" display="inline" id="S3.SS1.p1.13.m13" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>m</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mi>L</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>D</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathcal{M}\in\mathbb{R}^{N_{m}\times L\times D}</annotation></semantics></math>, where <math alttext="N_{m}" class="ltx_Math" display="inline" id="S3.SS1.p1.14.m14" intent=":literal"><semantics><msub><mi>N</mi><mi>m</mi></msub><annotation encoding="application/x-tex">N_{m}</annotation></semantics></math> is the number of polylines, <math alttext="L" class="ltx_Math" display="inline" id="S3.SS1.p1.15.m15" intent=":literal"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> is the number of points per polyline, and <math alttext="D" class="ltx_Math" display="inline" id="S3.SS1.p1.16.m16" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> is the number of attributes per point. Each point on a polyline includes several attributes such as its position, orientation, a semantic tag indicating whether it lies on a lane centerline, road edge, crosswalk boundary, and so on. Finally, let <math alttext="s^{g}_{e}" class="ltx_Math" display="inline" id="S3.SS1.p1.17.m17" intent=":literal"><semantics><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><annotation encoding="application/x-tex">s^{g}_{e}</annotation></semantics></math> denote the desired ego pose at the end of the horizon. Then, given the inputs <math alttext="(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})" class="ltx_Math" display="inline" id="S3.SS1.p1.18.m18" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})</annotation></semantics></math> and a future planning horizon of <math alttext="T=80" class="ltx_Math" display="inline" id="S3.SS1.p1.19.m19" intent=":literal"><semantics><mrow><mi>T</mi><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">T=80</annotation></semantics></math> timesteps, the goal is to simultaneously generate a motion plan for the ego <math alttext="S^{\text{plan}}_{e}:=(x^{e}_{1},\ldots,x^{e}_{T})" class="ltx_Math" display="inline" id="S3.SS1.p1.20.m20" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mi>e</mi><mtext>plan</mtext></msubsup><mo>:=</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mn>1</mn><mi>e</mi></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>x</mi><mi>T</mi><mi>e</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S^{\text{plan}}_{e}:=(x^{e}_{1},\ldots,x^{e}_{T})</annotation></semantics></math> and a prediction of the behavior of surrounding agents denoted as <math alttext="S^{\text{pred}}_{obj}:=\{S^{\text{pred}}_{j}\}_{j=1}^{N_{o}}" class="ltx_Math" display="inline" id="S3.SS1.p1.21.m21" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mrow><mi>o</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>j</mi></mrow><mtext>pred</mtext></msubsup><mo>:=</mo><msubsup><mrow><mo stretchy="false">{</mo><msubsup><mi>S</mi><mi>j</mi><mtext>pred</mtext></msubsup><mo stretchy="false">}</mo></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>N</mi><mi>o</mi></msub></msubsup></mrow><annotation encoding="application/x-tex">S^{\text{pred}}_{obj}:=\{S^{\text{pred}}_{j}\}_{j=1}^{N_{o}}</annotation></semantics></math>, where each <math alttext="S^{\text{pred}}_{j}:=(x^{j}_{1},\ldots,x^{j}_{T})" class="ltx_Math" display="inline" id="S3.SS1.p1.22.m22" intent=":literal"><semantics><mrow><msubsup><mi>S</mi><mi>j</mi><mtext>pred</mtext></msubsup><mo>:=</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mn>1</mn><mi>j</mi></msubsup><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><msubsup><mi>x</mi><mi>T</mi><mi>j</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S^{\text{pred}}_{j}:=(x^{j}_{1},\ldots,x^{j}_{T})</annotation></semantics></math>.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S3.SS2.5.1.1">III-B</span> </span><span class="ltx_text ltx_font_italic" id="S3.SS2.6.2">Motion Transformer Encoder</span>
+</h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">Shi et al. <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib24" title="Motion transformer with global intention localization and local movement refinement">20</a>]</cite> proposed a transformer-based architecture for autonomous driving which used an encoder to fuse agent histories and polyline map features into scene context, and a decoder to generate multiple plausible future trajectories. In our work, we retain their encoder and use its output, denoted by <math alttext="\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})" class="ltx_Math" display="inline" id="S3.SS2.p1.1.m1" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})</annotation></semantics></math>, as the conditional input to our flow matching based trajectory generator. It is worth noting that our method does not depend on a specific encoder design and can flexibly incorporate any scene encoder that provides rich contextual representations.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS3">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S3.SS3.5.1.1">III-C</span> </span><span class="ltx_text ltx_font_italic" id="S3.SS3.6.2">Variance-Adaptive Flow Matching</span>
+</h3>
+<section class="ltx_subsubsection" id="S3.SS3.SSSx1">
+<h4 class="ltx_title ltx_title_subsubsection">Overview of Flow Matching</h4>
+<div class="ltx_para" id="S3.SS3.SSSx1.p1">
+<p class="ltx_p" id="S3.SS3.SSSx1.p1.13">Flow matching is a generative modeling technique that transforms a sample <math alttext="z_{0}\sim p_{0}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.1.m1" intent=":literal"><semantics><mrow><msub><mi>z</mi><mn>0</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">z_{0}\sim p_{0}</annotation></semantics></math>, typically drawn from a standard Gaussian prior, into a corresponding sample <math alttext="z_{1}\sim p_{1}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.2.m2" intent=":literal"><semantics><mrow><msub><mi>z</mi><mn>1</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">z_{1}\sim p_{1}</annotation></semantics></math> from the data distribution, conditioned on a context vector <math alttext="c" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.3.m3" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> that encodes relevant input information <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib3" title="Flow matching for generative modeling">17</a>]</cite>. This transformation is realized by training a neural network to represent a time-dependent velocity field <math alttext="v_{\theta}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.4.m4" intent=":literal"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math>, such that <math alttext="\frac{d}{dt}z_{t}=v_{\theta}(z_{t},t\mid c)" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.5.m5" intent=":literal"><semantics><mrow><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow></mfrac><mo lspace="0em" rspace="0em">​</mo><msub><mi>z</mi><mi>t</mi></msub></mrow><mo>=</mo><mrow><msub><mi>v</mi><mi>θ</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mrow><mi>t</mi><mo>∣</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\frac{d}{dt}z_{t}=v_{\theta}(z_{t},t\mid c)</annotation></semantics></math> for <math alttext="t\in[0,1]" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.6.m6" intent=":literal"><semantics><mrow><mi>t</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">t\in[0,1]</annotation></semantics></math>. The model is trained on tuples <math alttext="(c,z_{0},z_{1})" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.7.m7" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>c</mi><mo>,</mo><msub><mi>z</mi><mn>0</mn></msub><mo>,</mo><msub><mi>z</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(c,z_{0},z_{1})</annotation></semantics></math> extracted from the Waymo Open Motion Dataset, where <math alttext="c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.8.m8" intent=":literal"><semantics><mrow><mi>c</mi><mo>=</mo><mrow><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})</annotation></semantics></math> is the context embedding produced by the Motion Transformer Encoder. At inference time, we sample <math alttext="z_{0}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.9.m9" intent=":literal"><semantics><msub><mi>z</mi><mn>0</mn></msub><annotation encoding="application/x-tex">z_{0}</annotation></semantics></math> from a standard Gaussian prior and compute the context embedding <math alttext="c" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.10.m10" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>, then integrate the learned velocity field <math alttext="v_{\theta}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.11.m11" intent=":literal"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math> to obtain <math alttext="S^{\text{plan}}_{e}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.12.m12" intent=":literal"><semantics><msubsup><mi>S</mi><mi>e</mi><mtext>plan</mtext></msubsup><annotation encoding="application/x-tex">S^{\text{plan}}_{e}</annotation></semantics></math> and <math alttext="S^{\text{pred}}_{obj}" class="ltx_Math" display="inline" id="S3.SS3.SSSx1.p1.13.m13" intent=":literal"><semantics><msubsup><mi>S</mi><mrow><mi>o</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>j</mi></mrow><mtext>pred</mtext></msubsup><annotation encoding="application/x-tex">S^{\text{pred}}_{obj}</annotation></semantics></math> which jointly represents the the planned trajectory for the ego vehicle and the predicted behavior of surrounding agents.</p>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S3.SS3.SSSx2">
+<h4 class="ltx_title ltx_title_subsubsection">Variance-Adaptive Time-Stepping</h4>
+<div class="ltx_para" id="S3.SS3.SSSx2.p1">
+<p class="ltx_p" id="S3.SS3.SSSx2.p1.8">A specific variant of flow matching, known as variance-adaptive flow matching <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib5" title="Adaflow: imitation learning with variance-adaptive flow-based policies">10</a>]</cite>, trains a lightweight feedforward neural network <math alttext="\sigma_{\phi}" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.1.m1" intent=":literal"><semantics><msub><mi>σ</mi><mi>ϕ</mi></msub><annotation encoding="application/x-tex">\sigma_{\phi}</annotation></semantics></math>, alongside the velocity field <math alttext="v_{\theta}" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.2.m2" intent=":literal"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math>. The output of this network, <math alttext="\sigma_{\phi}(z_{t},t\mid c)" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.3.m3" intent=":literal"><semantics><mrow><msub><mi>σ</mi><mi>ϕ</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mrow><mi>t</mi><mo>∣</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma_{\phi}(z_{t},t\mid c)</annotation></semantics></math>, estimates the local uncertainty of the flow based on how confidently the model has learned the velocity field for a given context, <math alttext="c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.4.m4" intent=":literal"><semantics><mrow><mi>c</mi><mo>=</mo><mrow><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})</annotation></semantics></math>. In contexts where the training data was dense, the predicted variance tends to be low, indicating that the learned velocity field is reliable. Conversely, in less frequently observed contexts, the predicted variance is high, signaling greater uncertainty about the flow. At inference time, we set the time step <math alttext="\Delta t\propto 1/\sigma_{\phi}(z_{t},t\mid c)" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.5.m5" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow><mo>∝</mo><mrow><mrow><mn>1</mn><mo>/</mo><msub><mi>σ</mi><mi>ϕ</mi></msub></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mrow><mi>t</mi><mo>∣</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\Delta t\propto 1/\sigma_{\phi}(z_{t},t\mid c)</annotation></semantics></math>. This determines the number of evaluations of <math alttext="v_{\theta}" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.6.m6" intent=":literal"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math> (NFE) needed to integrate from <math alttext="t=0" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.7.m7" intent=":literal"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math> to <math alttext="1" class="ltx_Math" display="inline" id="S3.SS3.SSSx2.p1.8.m8" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>.</p>
+</div>
+</section>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">IV </span><span class="ltx_text ltx_font_smallcaps" id="S4.1.1">Methodology</span>
+</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">In this section, we detail the algorithmic components of our proposed planner. We begin by describing the neural network architectures used to encode the scene context and subsequently generate trajectories. We then present the training procedure used to jointly optimize these components. Finally, we introduce a convex quadratic program that post-processes the generated trajectories to improve ride comfort and enforce dynamic feasibility.</p>
+</div>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S4.SS1.5.1.1">IV-A</span> </span><span class="ltx_text ltx_font_italic" id="S4.SS1.6.2">Neural Network Architectures</span>
+</h3>
+<section class="ltx_subsubsection" id="S4.SS1.SSSx1">
+<h4 class="ltx_title ltx_title_subsubsection">Scene Encoder Architecture</h4>
+<div class="ltx_para" id="S4.SS1.SSSx1.p1">
+<p class="ltx_p" id="S4.SS1.SSSx1.p1.1">The scene encoder processes the ego and surrounding agent histories, map polylines, and goal pose using a combination of Multi Layer Perceptrons (MLPs) and a transformer. Agent histories and map inputs are first embedded using an MLP, then passed through the transformer to capture spatial and temporal interactions. The goal pose is embedded separately and combined with the transformer outputs. The resulting token embeddings are flattened, masked, and projected into a fixed-length context vector <math alttext="c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})" class="ltx_Math" display="inline" id="S4.SS1.SSSx1.p1.1.m1" intent=":literal"><semantics><mrow><mi>c</mi><mo>=</mo><mrow><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi class="ltx_font_mathcaligraphic">ℳ</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mi>g</mi></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">c=\mathcal{C}(S^{\text{past}}_{e},S^{\text{past}}_{\text{obj}},\mathcal{M},s^{g}_{e})</annotation></semantics></math>, which conditions the flow-matching trajectory generator.</p>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S4.SS1.SSSx2">
+<h4 class="ltx_title ltx_title_subsubsection">Velocity Field and Variance Head Architecture</h4>
+<div class="ltx_para" id="S4.SS1.SSSx2.p1">
+<p class="ltx_p" id="S4.SS1.SSSx2.p1.6">The velocity field neural network <math alttext="v_{\theta}" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.1.m1" intent=":literal"><semantics><msub><mi>v</mi><mi>θ</mi></msub><annotation encoding="application/x-tex">v_{\theta}</annotation></semantics></math> is implemented as U-Net with base width 128 and dimensional multipliers <math alttext="(1,2,4)" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.2.m2" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1,2,4)</annotation></semantics></math>, following the design in <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib25" title="U-net: convolutional networks for biomedical image segmentation">19</a>]</cite>. It takes the conditional context embedding <math alttext="c" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.3.m3" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> as input and predicts per-timestep trajectories in <math alttext="(x,y,v_{x},v_{y})" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.4.m4" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><msub><mi>v</mi><mi>x</mi></msub><mo>,</mo><msub><mi>v</mi><mi>y</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x,y,v_{x},v_{y})</annotation></semantics></math> space. The variance estimator <math alttext="\sigma_{\phi}" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.5.m5" intent=":literal"><semantics><msub><mi>σ</mi><mi>ϕ</mi></msub><annotation encoding="application/x-tex">\sigma_{\phi}</annotation></semantics></math>, described in the previous section, operates on the bottleneck features of the U-Net. These features are passed through a four-layer MLP with hidden dimension 512 and Sigmoidal Linear Unit (SiLU) activations. The network outputs a scalar variance estimate, which is used to modulate the integration step size <math alttext="\epsilon_{t}" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.6.m6" intent=":literal"><semantics><msub><mi>ϵ</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\epsilon_{t}</annotation></semantics></math> as:</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\epsilon_{t}=\max\left(\frac{\eta}{\sigma_{\phi}},\;\epsilon_{\text{min}}\right)," class="ltx_Math" display="block" id="S4.E1.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>ϵ</mi><mi>t</mi></msub><mo>=</mo><mrow><mi>max</mi><mo>⁡</mo><mrow><mo>(</mo><mfrac><mi>η</mi><msub><mi>σ</mi><mi>ϕ</mi></msub></mfrac><mo rspace="0.447em">,</mo><msub><mi>ϵ</mi><mtext>min</mtext></msub><mo>)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\epsilon_{t}=\max\left(\frac{\eta}{\sigma_{\phi}},\;\epsilon_{\text{min}}\right),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="S4.SS1.SSSx2.p1.8">where <math alttext="\eta=0.1" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.7.m1" intent=":literal"><semantics><mrow><mi>η</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\eta=0.1</annotation></semantics></math> is a user-defined regulation constant, and <math alttext="\epsilon_{\text{min}}=0.01" class="ltx_Math" display="inline" id="S4.SS1.SSSx2.p1.8.m2" intent=":literal"><semantics><mrow><msub><mi>ϵ</mi><mtext>min</mtext></msub><mo>=</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">\epsilon_{\text{min}}=0.01</annotation></semantics></math> is a configurable minimum allowable step size.</p>
+</div>
+</section>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S4.SS2.5.1.1">IV-B</span> </span><span class="ltx_text ltx_font_italic" id="S4.SS2.6.2">Training Procedure</span>
+</h3>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">We jointly train the scene encoder, the velocity field network, and the variance prediction network. For the scene encoder, we adopt the encoder training loss <math alttext="\mathcal{L}_{\text{encoder}}" class="ltx_Math" display="inline" id="S4.SS2.p1.1.m1" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>encoder</mtext></msub><annotation encoding="application/x-tex">\mathcal{L}_{\text{encoder}}</annotation></semantics></math> defined in the Motion Transformer framework <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib24" title="Motion transformer with global intention localization and local movement refinement">20</a>]</cite>.</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p2">
+<p class="ltx_p" id="S4.SS2.p2.7">During training, we sample <math alttext="z_{0}\sim p_{0}" class="ltx_Math" display="inline" id="S4.SS2.p2.1.m1" intent=":literal"><semantics><mrow><msub><mi>z</mi><mn>0</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">z_{0}\sim p_{0}</annotation></semantics></math>, which is a standard multivariate Gaussian distribution <math alttext="\mathcal{N}(0,I)" class="ltx_Math" display="inline" id="S4.SS2.p2.2.m2" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒩</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mi>I</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{N}(0,I)</annotation></semantics></math> and <math alttext="z_{1}\sim p_{1}" class="ltx_Math" display="inline" id="S4.SS2.p2.3.m3" intent=":literal"><semantics><mrow><msub><mi>z</mi><mn>1</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">z_{1}\sim p_{1}</annotation></semantics></math> is sampled from the data distribution of the normalized ground-truth future trajectory in the Waymo Open Motion Dataset (WOMD). At a uniformly sampled time <math alttext="t\in[0,1]" class="ltx_Math" display="inline" id="S4.SS2.p2.4.m4" intent=":literal"><semantics><mrow><mi>t</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">t\in[0,1]</annotation></semantics></math>, we construct the interpolated state <math alttext="z_{t}=(1-t)z_{0}+tz_{1}" class="ltx_Math" display="inline" id="S4.SS2.p2.5.m5" intent=":literal"><semantics><mrow><msub><mi>z</mi><mi>t</mi></msub><mo>=</mo><mrow><mrow><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><mi>t</mi></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msub><mi>z</mi><mn>0</mn></msub></mrow><mo>+</mo><mrow><mi>t</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>z</mi><mn>1</mn></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">z_{t}=(1-t)z_{0}+tz_{1}</annotation></semantics></math>, and define the target velocity as <math alttext="z_{1}-z_{0}" class="ltx_Math" display="inline" id="S4.SS2.p2.6.m6" intent=":literal"><semantics><mrow><msub><mi>z</mi><mn>1</mn></msub><mo>−</mo><msub><mi>z</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">z_{1}-z_{0}</annotation></semantics></math>. The context vector <math alttext="c=\mathcal{C}(S_{e}^{\text{past}},S_{\text{obj}}^{\text{past}},M,s_{e}^{\text{goal}})" class="ltx_Math" display="inline" id="S4.SS2.p2.7.m7" intent=":literal"><semantics><mrow><mi>c</mi><mo>=</mo><mrow><mi class="ltx_font_mathcaligraphic">𝒞</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>S</mi><mi>e</mi><mtext>past</mtext></msubsup><mo>,</mo><msubsup><mi>S</mi><mtext>obj</mtext><mtext>past</mtext></msubsup><mo>,</mo><mi>M</mi><mo>,</mo><msubsup><mi>s</mi><mi>e</mi><mtext>goal</mtext></msubsup><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">c=\mathcal{C}(S_{e}^{\text{past}},S_{\text{obj}}^{\text{past}},M,s_{e}^{\text{goal}})</annotation></semantics></math> is used to condition both the velocity field and variance networks, which are trained using the following loss <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib5" title="Adaflow: imitation learning with variance-adaptive flow-based policies">10</a>]</cite>:</p>
+<table class="ltx_equationgroup ltx_eqn_align ltx_eqn_table" id="S6.EGx1">
+<tbody id="S4.E2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\mathcal{L}_{\text{flow}}" class="ltx_Math" display="inline" id="S4.E2.m1" intent=":literal"><semantics><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>flow</mtext></msub><annotation encoding="application/x-tex">\displaystyle\mathcal{L}_{\text{flow}}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\mathbb{E}_{t\sim\mathcal{U}(0,1),\;z_{0}\sim p_{0},\;z_{1}\sim p_{1}}\left[\mathcal{L}(v_{\theta},\sigma_{\phi})\right]" class="ltx_Math" display="inline" id="S4.E2.m2" intent=":literal"><semantics><mrow><mi></mi><mo>=</mo><mrow><msub><mi>𝔼</mi><mrow><mrow><mi>t</mi><mo>∼</mo><mrow><mi class="ltx_font_mathcaligraphic">𝒰</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="0.447em">,</mo><mrow><mrow><msub><mi>z</mi><mn>0</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>0</mn></msub></mrow><mo rspace="0.447em">,</mo><mrow><msub><mi>z</mi><mn>1</mn></msub><mo>∼</mo><msub><mi>p</mi><mn>1</mn></msub></mrow></mrow></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo>[</mo><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>v</mi><mi>θ</mi></msub><mo>,</mo><msub><mi>σ</mi><mi>ϕ</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>]</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\mathbb{E}_{t\sim\mathcal{U}(0,1),\;z_{0}\sim p_{0},\;z_{1}\sim p_{1}}\left[\mathcal{L}(v_{\theta},\sigma_{\phi})\right]</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+<tbody id="S4.Ex1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\mathcal{L}(v_{\theta},\sigma_{\phi})" class="ltx_Math" display="inline" id="S4.Ex1.m1" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">ℒ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>v</mi><mi>θ</mi></msub><mo>,</mo><msub><mi>σ</mi><mi>ϕ</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\mathcal{L}(v_{\theta},\sigma_{\phi})</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\frac{\|z_{1}-z_{0}-v_{\theta}(z_{t},t\mid c)\|^{2}}{2\sigma_{\phi}(z_{t},t\mid c)}+\log\sigma_{\phi}(z_{t},t\mid c)" class="ltx_math_unparsed" display="inline" id="S4.Ex1.m2" intent=":literal"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mo rspace="0.167em">∥</mo><msub><mi>z</mi><mn>1</mn></msub><mo>−</mo><msub><mi>z</mi><mn>0</mn></msub><mo>−</mo><msub><mi>v</mi><mi>θ</mi></msub><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mi>t</mi><mo lspace="0em" rspace="0.167em">∣</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><msup><mo lspace="0em">∥</mo><mn>2</mn></msup></mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>σ</mi><mi>ϕ</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mrow><mi>t</mi><mo>∣</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mfrac></mstyle><mo>+</mo><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><msub><mi>σ</mi><mi>ϕ</mi></msub></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>z</mi><mi>t</mi></msub><mo>,</mo><mrow><mi>t</mi><mo>∣</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{\|z_{1}-z_{0}-v_{\theta}(z_{t},t\mid c)\|^{2}}{2\sigma_{\phi}(z_{t},t\mid c)}+\log\sigma_{\phi}(z_{t},t\mid c)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S4.SS2.p3">
+<p class="ltx_p" id="S4.SS2.p3.1">This loss encourages the velocity predictor to match the target vector field while allowing the predicted variance to increase in high-error regions and decrease in confident regions. The log term acts as a regularization penalty that prevents the predicted variances from becoming arbitrarily large. The total training loss is a weighted combination of the encoder and flow objectives:</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathcal{L}_{\text{total}}=\beta_{1}\mathcal{L}_{\text{encoder}}+\beta_{2}\mathcal{L}_{\text{flow}}" class="ltx_Math" display="block" id="S4.E3.m1" intent=":literal"><semantics><mrow><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>total</mtext></msub><mo>=</mo><mrow><mrow><msub><mi>β</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>encoder</mtext></msub></mrow><mo>+</mo><mrow><msub><mi>β</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi class="ltx_font_mathcaligraphic">ℒ</mi><mtext>flow</mtext></msub></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}_{\text{total}}=\beta_{1}\mathcal{L}_{\text{encoder}}+\beta_{2}\mathcal{L}_{\text{flow}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td>
+</tr></tbody>
+</table>
+</div>
+<section class="ltx_subsubsection" id="S4.SS2.SSSx1">
+<h4 class="ltx_title ltx_title_subsubsection">Constrained Refinement of Predicted Trajectories</h4>
+<div class="ltx_para" id="S4.SS2.SSSx1.p1">
+<p class="ltx_p" id="S4.SS2.SSSx1.p1.1">The trajectory generated by the adaptive flow-matching network may have sharp turns or fail to reach the target goal by the end of the prediction horizon. To improve trajectory smoothness and encourage goal reaching, we apply a post-processing step to the ego motion plan that enforces constraints on lateral acceleration, angular velocity, and final position.</p>
+</div>
+<div class="ltx_para" id="S4.SS2.SSSx1.p2">
+<p class="ltx_p" id="S4.SS2.SSSx1.p2.1">Given discrete positions <math alttext="(x_{k},y_{k})" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.1.m1" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>k</mi></msub><mo>,</mo><msub><mi>y</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_{k},y_{k})</annotation></semantics></math>, we compute the linear velocities and accelerations as:</p>
+<table class="ltx_equationgroup ltx_eqn_align ltx_eqn_table" id="S6.EGx2">
+<tbody id="S4.Ex2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle v_{x}^{k}" class="ltx_Math" display="inline" id="S4.Ex2.m1" intent=":literal"><semantics><msubsup><mi>v</mi><mi>x</mi><mi>k</mi></msubsup><annotation encoding="application/x-tex">\displaystyle v_{x}^{k}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\frac{x_{k+1}-x_{k}}{\Delta t},\quad v_{y}^{k}=\frac{y_{k+1}-y_{k}}{\Delta t}," class="ltx_Math" display="inline" id="S4.Ex2.m2" intent=":literal"><semantics><mrow><mrow><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mi>k</mi></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow></mfrac></mstyle></mrow><mo rspace="1.167em">,</mo><mrow><msubsup><mi>v</mi><mi>y</mi><mi>k</mi></msubsup><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>y</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>y</mi><mi>k</mi></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow></mfrac></mstyle></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{x_{k+1}-x_{k}}{\Delta t},\quad v_{y}^{k}=\frac{y_{k+1}-y_{k}}{\Delta t},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+<tbody id="S4.Ex3"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle a_{x}^{k}" class="ltx_Math" display="inline" id="S4.Ex3.m1" intent=":literal"><semantics><msubsup><mi>a</mi><mi>x</mi><mi>k</mi></msubsup><annotation encoding="application/x-tex">\displaystyle a_{x}^{k}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\frac{x_{k+2}-2x_{k+1}+x_{k}}{\Delta t^{2}},\quad a_{y}^{k}=\frac{y_{k+2}-2y_{k+1}+y_{k}}{\Delta t^{2}}." class="ltx_Math" display="inline" id="S4.Ex3.m2" intent=":literal"><semantics><mrow><mrow><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><msub><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></mrow><mo>+</mo><msub><mi>x</mi><mi>k</mi></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mstyle></mrow><mo rspace="1.167em">,</mo><mrow><msubsup><mi>a</mi><mi>y</mi><mi>k</mi></msubsup><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><msub><mi>y</mi><mrow><mi>k</mi><mo>+</mo><mn>2</mn></mrow></msub><mo>−</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>y</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow></mrow><mo>+</mo><msub><mi>y</mi><mi>k</mi></msub></mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mstyle></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{x_{k+2}-2x_{k+1}+x_{k}}{\Delta t^{2}},\quad a_{y}^{k}=\frac{y_{k+2}-2y_{k+1}+y_{k}}{\Delta t^{2}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="S4.SS2.SSSx1.p2.4">The lateral acceleration <math alttext="\alpha^{k}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.2.m1" intent=":literal"><semantics><msup><mi>α</mi><mi>k</mi></msup><annotation encoding="application/x-tex">\alpha^{k}</annotation></semantics></math> and angular velocity <math alttext="\omega^{k}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.3.m2" intent=":literal"><semantics><msup><mi>ω</mi><mi>k</mi></msup><annotation encoding="application/x-tex">\omega^{k}</annotation></semantics></math> at time <math alttext="k" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.4.m3" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> are computed as <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib31" title="Data-driven sampling based stochastic mpc for skid-steer mobile robot navigation">27</a>]</cite>:</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.Ex4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha^{k}=\frac{a_{x}^{k}v_{x}^{k}+a_{y}^{k}v_{y}^{k}}{\sqrt{(v_{x}^{k})^{2}+(v_{y}^{k})^{2}}},\quad\omega^{k}=\frac{v_{x}^{k}a_{y}^{k}-v_{y}^{k}a_{x}^{k}}{(v_{x}^{k})^{2}+(v_{y}^{k})^{2}}." class="ltx_Math" display="block" id="S4.Ex4.m1" intent=":literal"><semantics><mrow><mrow><mrow><msup><mi>α</mi><mi>k</mi></msup><mo>=</mo><mfrac><mrow><mrow><msubsup><mi>a</mi><mi>x</mi><mi>k</mi></msubsup><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>v</mi><mi>x</mi><mi>k</mi></msubsup></mrow><mo>+</mo><mrow><msubsup><mi>a</mi><mi>y</mi><mi>k</mi></msubsup><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>v</mi><mi>y</mi><mi>k</mi></msubsup></mrow></mrow><msqrt><mrow><msup><mrow><mo stretchy="false">(</mo><msubsup><mi>v</mi><mi>x</mi><mi>k</mi></msubsup><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="false">(</mo><msubsup><mi>v</mi><mi>y</mi><mi>k</mi></msubsup><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mfrac></mrow><mo rspace="1.167em">,</mo><mrow><msup><mi>ω</mi><mi>k</mi></msup><mo>=</mo><mfrac><mrow><mrow><msubsup><mi>v</mi><mi>x</mi><mi>k</mi></msubsup><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>a</mi><mi>y</mi><mi>k</mi></msubsup></mrow><mo>−</mo><mrow><msubsup><mi>v</mi><mi>y</mi><mi>k</mi></msubsup><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>a</mi><mi>x</mi><mi>k</mi></msubsup></mrow></mrow><mrow><msup><mrow><mo stretchy="false">(</mo><msubsup><mi>v</mi><mi>x</mi><mi>k</mi></msubsup><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="false">(</mo><msubsup><mi>v</mi><mi>y</mi><mi>k</mi></msubsup><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\alpha^{k}=\frac{a_{x}^{k}v_{x}^{k}+a_{y}^{k}v_{y}^{k}}{\sqrt{(v_{x}^{k})^{2}+(v_{y}^{k})^{2}}},\quad\omega^{k}=\frac{v_{x}^{k}a_{y}^{k}-v_{y}^{k}a_{x}^{k}}{(v_{x}^{k})^{2}+(v_{y}^{k})^{2}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p" id="S4.SS2.SSSx1.p2.10">We enforce bounds of the form <math alttext="|\alpha^{k}|\leq\alpha_{\text{limit}}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.5.m1" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><msup><mi>α</mi><mi>k</mi></msup><mo stretchy="false">|</mo></mrow><mo>≤</mo><msub><mi>α</mi><mtext>limit</mtext></msub></mrow><annotation encoding="application/x-tex">|\alpha^{k}|\leq\alpha_{\text{limit}}</annotation></semantics></math>, <math alttext="|\omega^{k}|\leq\omega_{\text{limit}}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.6.m2" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><msup><mi>ω</mi><mi>k</mi></msup><mo stretchy="false">|</mo></mrow><mo>≤</mo><msub><mi>ω</mi><mtext>limit</mtext></msub></mrow><annotation encoding="application/x-tex">|\omega^{k}|\leq\omega_{\text{limit}}</annotation></semantics></math>, and require that the final position lies within a tolerance <math alttext="r" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.7.m3" intent=":literal"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> of the desired goal. These constraints are non-convex due to bilinear dependencies on position terms. To avoid solving a computationally expensive optimization program, we linearize it around the flow matching output trajectory <math alttext="\mathbf{\tau}^{\text{ref}}=((x_{0}^{\text{ref}},y_{0}^{\text{ref}}),\cdots,(x_{T-1}^{\text{ref}},y_{T-1}^{\text{ref}}))" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.8.m4" intent=":literal"><semantics><mrow><msup><mi>τ</mi><mtext>ref</mtext></msup><mo>=</mo><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mn>0</mn><mtext>ref</mtext></msubsup><mo>,</mo><msubsup><mi>y</mi><mn>0</mn><mtext>ref</mtext></msubsup><mo stretchy="false">)</mo></mrow><mo>,</mo><mi mathvariant="normal">⋯</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><msubsup><mi>x</mi><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow><mtext>ref</mtext></msubsup><mo>,</mo><msubsup><mi>y</mi><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow><mtext>ref</mtext></msubsup><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{\tau}^{\text{ref}}=((x_{0}^{\text{ref}},y_{0}^{\text{ref}}),\cdots,(x_{T-1}^{\text{ref}},y_{T-1}^{\text{ref}}))</annotation></semantics></math> to obtain affine surrogates <math alttext="\bar{\alpha}^{k}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.9.m5" intent=":literal"><semantics><msup><mover accent="true"><mi>α</mi><mo>¯</mo></mover><mi>k</mi></msup><annotation encoding="application/x-tex">\bar{\alpha}^{k}</annotation></semantics></math> and <math alttext="\bar{\omega}^{k}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p2.10.m6" intent=":literal"><semantics><msup><mover accent="true"><mi>ω</mi><mo>¯</mo></mover><mi>k</mi></msup><annotation encoding="application/x-tex">\bar{\omega}^{k}</annotation></semantics></math>. We then impose absolute value bounds on the linearized quantities, relaxed using slack variables:</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="|\bar{\alpha}^{k}|\leq\alpha_{\text{limit}}+s_{\text{acc}}^{k},\,|\bar{\omega}^{k}|\leq\omega_{\text{limit}}+s_{\omega}^{k},\,s_{\text{acc}}^{k}\geq 0,\,s_{\omega}^{k}\geq 0." class="ltx_Math" display="block" id="S4.E4.m1" intent=":literal"><semantics><mrow><mrow><mrow><mrow><mo stretchy="false">|</mo><msup><mover accent="true"><mi>α</mi><mo>¯</mo></mover><mi>k</mi></msup><mo stretchy="false">|</mo></mrow><mo>≤</mo><mrow><msub><mi>α</mi><mtext>limit</mtext></msub><mo>+</mo><msubsup><mi>s</mi><mtext>acc</mtext><mi>k</mi></msubsup></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mrow><mrow><mo stretchy="false">|</mo><msup><mover accent="true"><mi>ω</mi><mo>¯</mo></mover><mi>k</mi></msup><mo stretchy="false">|</mo></mrow><mo>≤</mo><mrow><msub><mi>ω</mi><mtext>limit</mtext></msub><mo>+</mo><msubsup><mi>s</mi><mi>ω</mi><mi>k</mi></msubsup></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mrow><msubsup><mi>s</mi><mtext>acc</mtext><mi>k</mi></msubsup><mo>≥</mo><mn>0</mn></mrow><mo rspace="0.337em">,</mo><mrow><msubsup><mi>s</mi><mi>ω</mi><mi>k</mi></msubsup><mo>≥</mo><mn>0</mn></mrow></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">|\bar{\alpha}^{k}|\leq\alpha_{\text{limit}}+s_{\text{acc}}^{k},\,|\bar{\omega}^{k}|\leq\omega_{\text{limit}}+s_{\omega}^{k},\,s_{\text{acc}}^{k}\geq 0,\,s_{\omega}^{k}\geq 0.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td>
+</tr></tbody>
+</table>
+<table class="ltx_equation ltx_eqn_table" id="S4.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="|x_{T}-x_{\text{goal}}|\leq r+s_{\text{goal}}^{x},\,|y_{T}-y_{\text{goal}}|\leq r+s_{\text{goal}}^{y},\,s_{\text{goal}}^{x,y}\geq 0,\," class="ltx_Math" display="block" id="S4.E5.m1" intent=":literal"><semantics><mrow><mrow><mrow><mrow><mo stretchy="false">|</mo><mrow><msub><mi>x</mi><mi>T</mi></msub><mo>−</mo><msub><mi>x</mi><mtext>goal</mtext></msub></mrow><mo stretchy="false">|</mo></mrow><mo>≤</mo><mrow><mi>r</mi><mo>+</mo><msubsup><mi>s</mi><mtext>goal</mtext><mi>x</mi></msubsup></mrow></mrow><mo rspace="0.337em">,</mo><mrow><mrow><mrow><mo stretchy="false">|</mo><mrow><msub><mi>y</mi><mi>T</mi></msub><mo>−</mo><msub><mi>y</mi><mtext>goal</mtext></msub></mrow><mo stretchy="false">|</mo></mrow><mo>≤</mo><mrow><mi>r</mi><mo>+</mo><msubsup><mi>s</mi><mtext>goal</mtext><mi>y</mi></msubsup></mrow></mrow><mo rspace="0.337em">,</mo><mrow><msubsup><mi>s</mi><mtext>goal</mtext><mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow></msubsup><mo>≥</mo><mn>0</mn></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">|x_{T}-x_{\text{goal}}|\leq r+s_{\text{goal}}^{x},\,|y_{T}-y_{\text{goal}}|\leq r+s_{\text{goal}}^{y},\,s_{\text{goal}}^{x,y}\geq 0,\,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S4.SS2.SSSx1.p3">
+<p class="ltx_p" id="S4.SS2.SSSx1.p3.2">We solve the following convex quadratic program, where <math alttext="\mathbf{\tau}=((x_{0},y_{0}),\cdots,(x_{T},y_{T}))" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p3.1.m1" intent=":literal"><semantics><mrow><mi>τ</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>0</mn></msub><mo>,</mo><msub><mi>y</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow><mo>,</mo><mi mathvariant="normal">⋯</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mi>T</mi></msub><mo>,</mo><msub><mi>y</mi><mi>T</mi></msub><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{\tau}=((x_{0},y_{0}),\cdots,(x_{T},y_{T}))</annotation></semantics></math> denotes the ego vehicle’s optimized trajectory and <math alttext="s" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p3.2.m2" intent=":literal"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> denotes all associated slack variables:</p>
+<table class="ltx_equationgroup ltx_eqn_table" id="S4.Ex5">
+<tbody id="S4.Ex5X"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\min_{\mathbf{\tau},s}" class="ltx_Math" display="inline" id="S4.Ex5X.2.1.1.m1" intent=":literal"><semantics><munder><mi>min</mi><mrow><mi>τ</mi><mo>,</mo><mi>s</mi></mrow></munder><annotation encoding="application/x-tex">\displaystyle\min_{\mathbf{\tau},s}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle\underbrace{w_{\text{track}}\sum_{k=0}^{T-1}\left\|\begin{bmatrix}x_{k}\\
+y_{k}\end{bmatrix}-\begin{bmatrix}x^{\text{ref}}_{k}\\
+y^{\text{ref}}_{k}\end{bmatrix}\right\|^{2}}_{\text{Position tracking}}+\underbrace{w_{T}\left\|\begin{bmatrix}x_{T}\\
+y_{T}\end{bmatrix}-\begin{bmatrix}x_{\text{goal}}\\
+y_{\text{goal}}\end{bmatrix}\right\|^{2}}_{\text{Goal-reaching}}" class="ltx_Math" display="inline" id="S4.Ex5X.3.2.2.m1" intent=":literal"><semantics><mrow><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mtext>track</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></munderover></mstyle><msup><mrow><mo>‖</mo><mrow><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><msub><mi>x</mi><mi>k</mi></msub></mtd></mtr><mtr><mtd><msub><mi>y</mi><mi>k</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow><mo>−</mo><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><msubsup><mi>x</mi><mi>k</mi><mtext>ref</mtext></msubsup></mtd></mtr><mtr><mtd><msubsup><mi>y</mi><mi>k</mi><mtext>ref</mtext></msubsup></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>‖</mo></mrow><mn>2</mn></msup></mrow></mrow><mo stretchy="true">⏟</mo></munder><mtext>Position tracking</mtext></munder><mo>+</mo><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mi>T</mi></msub><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo>‖</mo><mrow><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><msub><mi>x</mi><mi>T</mi></msub></mtd></mtr><mtr><mtd><msub><mi>y</mi><mi>T</mi></msub></mtd></mtr></mtable><mo>]</mo></mrow><mo>−</mo><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><msub><mi>x</mi><mtext>goal</mtext></msub></mtd></mtr><mtr><mtd><msub><mi>y</mi><mtext>goal</mtext></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>‖</mo></mrow><mn>2</mn></msup></mrow><mo stretchy="true">⏟</mo></munder><mtext>Goal-reaching</mtext></munder></mrow><annotation encoding="application/x-tex">\displaystyle\underbrace{w_{\text{track}}\sum_{k=0}^{T-1}\left\|\begin{bmatrix}x_{k}\\
+y_{k}\end{bmatrix}-\begin{bmatrix}x^{\text{ref}}_{k}\\
+y^{\text{ref}}_{k}\end{bmatrix}\right\|^{2}}_{\text{Position tracking}}+\underbrace{w_{T}\left\|\begin{bmatrix}x_{T}\\
+y_{T}\end{bmatrix}-\begin{bmatrix}x_{\text{goal}}\\
+y_{\text{goal}}\end{bmatrix}\right\|^{2}}_{\text{Goal-reaching}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+<tbody id="S4.Ex5Xa"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_eqn_cell"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle+\underbrace{w_{\text{smooth}}\sum_{k=0}^{T-2}\left\|\begin{bmatrix}x_{k+1}-x_{k}\\
+y_{k+1}-y_{k}\end{bmatrix}-\begin{bmatrix}x^{\text{ref}}_{k+1}-x^{\text{ref}}_{k}\\
+y^{\text{ref}}_{k+1}-y^{\text{ref}}_{k}\end{bmatrix}\right\|^{2}}_{\text{Reference-centered velocity smoothing}}" class="ltx_Math" display="inline" id="S4.Ex5Xa.2.1.1.m1" intent=":literal"><semantics><mrow><mo>+</mo><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mtext>smooth</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mrow><mi>T</mi><mo>−</mo><mn>2</mn></mrow></munderover></mstyle><msup><mrow><mo>‖</mo><mrow><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><mrow><msub><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mi>k</mi></msub></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>y</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>y</mi><mi>k</mi></msub></mrow></mtd></mtr></mtable><mo>]</mo></mrow><mo>−</mo><mrow><mo>[</mo><mtable rowspacing="0pt"><mtr><mtd><mrow><msubsup><mi>x</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mtext>ref</mtext></msubsup><mo>−</mo><msubsup><mi>x</mi><mi>k</mi><mtext>ref</mtext></msubsup></mrow></mtd></mtr><mtr><mtd><mrow><msubsup><mi>y</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mtext>ref</mtext></msubsup><mo>−</mo><msubsup><mi>y</mi><mi>k</mi><mtext>ref</mtext></msubsup></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>‖</mo></mrow><mn>2</mn></msup></mrow></mrow><mo stretchy="true">⏟</mo></munder><mtext>Reference-centered velocity smoothing</mtext></munder></mrow><annotation encoding="application/x-tex">\displaystyle+\underbrace{w_{\text{smooth}}\sum_{k=0}^{T-2}\left\|\begin{bmatrix}x_{k+1}-x_{k}\\
+y_{k+1}-y_{k}\end{bmatrix}-\begin{bmatrix}x^{\text{ref}}_{k+1}-x^{\text{ref}}_{k}\\
+y^{\text{ref}}_{k+1}-y^{\text{ref}}_{k}\end{bmatrix}\right\|^{2}}_{\text{Reference-centered velocity smoothing}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+<tbody id="S4.Ex5Xb"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_eqn_cell"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle+\underbrace{w_{\text{acc}}\sum_{k}s_{\text{acc}}^{k}}_{\text{Lateral slack}}+\underbrace{w_{\omega}\sum_{k}s_{\omega}^{k}}_{\text{Angular slack}}+\underbrace{w_{\text{goal}}(s_{\text{goal}}^{x}+s_{\text{goal}}^{y})}_{\text{Goal slack}}" class="ltx_Math" display="inline" id="S4.Ex5Xb.2.1.1.m1" intent=":literal"><semantics><mrow><mrow><mo>+</mo><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mtext>acc</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mstyle displaystyle="true"><munder><mo movablelimits="false">∑</mo><mi>k</mi></munder></mstyle><msubsup><mi>s</mi><mtext>acc</mtext><mi>k</mi></msubsup></mrow></mrow><mo stretchy="true">⏟</mo></munder><mtext>Lateral slack</mtext></munder></mrow><mo>+</mo><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mi>ω</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mstyle displaystyle="true"><munder><mo movablelimits="false">∑</mo><mi>k</mi></munder></mstyle><msubsup><mi>s</mi><mi>ω</mi><mi>k</mi></msubsup></mrow></mrow><mo stretchy="true">⏟</mo></munder><mtext>Angular slack</mtext></munder><mo>+</mo><munder><munder accentunder="true"><mrow><msub><mi>w</mi><mtext>goal</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><msubsup><mi>s</mi><mtext>goal</mtext><mi>x</mi></msubsup><mo>+</mo><msubsup><mi>s</mi><mtext>goal</mtext><mi>y</mi></msubsup></mrow><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="true">⏟</mo></munder><mtext>Goal slack</mtext></munder></mrow><annotation encoding="application/x-tex">\displaystyle+\underbrace{w_{\text{acc}}\sum_{k}s_{\text{acc}}^{k}}_{\text{Lateral slack}}+\underbrace{w_{\omega}\sum_{k}s_{\omega}^{k}}_{\text{Angular slack}}+\underbrace{w_{\text{goal}}(s_{\text{goal}}^{x}+s_{\text{goal}}^{y})}_{\text{Goal slack}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+<table class="ltx_equation ltx_eqn_table" id="S4.Ex6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><span class="ltx_text ltx_markedasmath" id="S4.Ex6.1">subject to the constraints in Eqs. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.E4" title="In Constrained Refinement of Predicted Trajectories ‣ IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">4</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.E5" title="In Constrained Refinement of Predicted Trajectories ‣ IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">5</span></a>.</span></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S4.SS2.SSSx1.p4">
+<p class="ltx_p" id="S4.SS2.SSSx1.p4.1">The weights <math alttext="w_{\text{track}},w_{T},w_{\text{smooth}},w_{\text{acc}},w_{\omega},w_{\text{goal}}" class="ltx_Math" display="inline" id="S4.SS2.SSSx1.p4.1.m1" intent=":literal"><semantics><mrow><msub><mi>w</mi><mtext>track</mtext></msub><mo>,</mo><msub><mi>w</mi><mi>T</mi></msub><mo>,</mo><msub><mi>w</mi><mtext>smooth</mtext></msub><mo>,</mo><msub><mi>w</mi><mtext>acc</mtext></msub><mo>,</mo><msub><mi>w</mi><mi>ω</mi></msub><mo>,</mo><msub><mi>w</mi><mtext>goal</mtext></msub></mrow><annotation encoding="application/x-tex">w_{\text{track}},w_{T},w_{\text{smooth}},w_{\text{acc}},w_{\omega},w_{\text{goal}}</annotation></semantics></math> control the trade-off between tracking accuracy, smoothness, and constraint satisfaction. The output of this convex quadratic program is the final ego-vehicle motion plan. We solve it efficiently using off-the-shelf solvers such as OSQP <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib32" title="OSQP: an operator splitting solver for quadratic programs">23</a>]</cite> in around 1 millisecond per trajectory.</p>
+</div>
+</section>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">V </span><span class="ltx_text ltx_font_smallcaps" id="S5.1.1">Experiments and Results</span>
+</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">This section presents experiments on the Waymo Open Motion Dataset. We begin with a description of the dataset and evaluation metrics, followed by qualitative visualizations that illustrate the planner’s performance across diverse real-world scenarios. We then benchmark our method against diffusion, consistency, and transformer baselines in terms of planning accuracy, constraint satisfaction, and runtime.</p>
+</div>
+<section class="ltx_subsection" id="S5.SS1">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS1.5.1.1">V-A</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS1.6.2">Dataset and Evaluation Setup</span>
+</h3>
+<div class="ltx_para" id="S5.SS1.p1">
+<p class="ltx_p" id="S5.SS1.p1.1">The Waymo Open Motion Dataset (WOMD) <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib11" title="Scalability in perception for autonomous driving: waymo open dataset">24</a>]</cite> is a large-scale benchmark covering diverse urban driving scenarios. Each sample includes one second of past motion for all agents, eight seconds of future ground-truth trajectories, and high-definition maps. Our planner is conditioned on the final pose of the ego vehicle from the ground-truth, though this can be replaced by any goal generation module, such as <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib13" title="Goalflow: goal-driven flow matching for multimodal trajectories generation in end-to-end autonomous driving">29</a>]</cite>. All evaluations are performed on the official validation split, which is further categorized into interactive and non-interactive subsets based on agent interaction levels.</p>
+</div>
+<div class="ltx_para" id="S5.SS1.p2">
+<p class="ltx_p" id="S5.SS1.p2.1">To evaluate planner performance, we report metrics that capture both alignment with ground-truth trajectories and ride quality. These include minimum average displacement error (minADE) and final displacement error (minFDE), which measure average and final deviations from the ground truth. Goal-reaching error is defined as the Euclidean distance between the final pose of the planned trajectory and the assigned goal. To assess ride quality, we compute angle change, total path length, and average curvature, capturing directional smoothness, path efficiency, and turning sharpness, respectively. Constraint satisfaction is measured through violations in lateral acceleration, angular velocity, and goal-reaching constraints. We also report collision rate, defined as the percentage of scenarios where the ego comes within 2 meters of another agent’s ground-truth trajectory. All metrics are computed in an open-loop setting and averaged over validation subsets.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S5.SS2">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS2.5.1.1">V-B</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS2.6.2">Trajectory Output Visualizations</span>
+</h3>
+<figure class="ltx_figure" id="S5.F2">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center" id="S5.F2.sf1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="492" id="S5.F2.sf1.g1" src="initial_goal.png" width="479"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F2.sf1.2.1.1" style="font-size:90%;">(a)</span> </span><span class="ltx_text" id="S5.F2.sf1.3.2" style="font-size:90%;">Original Goal</span></figcaption>
+</figure>
+</div>
+<div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center" id="S5.F2.sf2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="492" id="S5.F2.sf2.g1" src="updated_goal.png" width="479"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F2.sf2.2.1.1" style="font-size:90%;">(b)</span> </span><span class="ltx_text" id="S5.F2.sf2.3.2" style="font-size:90%;">Updated Goal</span></figcaption>
+</figure>
+</div>
+</div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F2.2.1.1" style="font-size:90%;">Figure 2</span>: </span><span class="ltx_text" id="S5.F2.3.2" style="font-size:90%;">(a) The ego takes a sharp right exit. (b) From the same initial pose, the goal is changed to a left lane change. The policy adapts and produces smooth, lane-aligned trajectories.</span></figcaption>
+</figure>
+<figure class="ltx_figure" id="S5.F3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="229" id="S5.F3.g1" src="adaflow_snapshots.jpg" width="429"/></div>
+<div class="ltx_flex_break"></div>
+<div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="70" id="S5.F3.g2" src="speed_plots.jpg" width="429"/></div>
+</div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F3.2.1.1" style="font-size:90%;">Figure 3</span>: </span><span class="ltx_text" id="S5.F3.3.2" style="font-size:90%;">Example maneuvers handled by the proposed method: (a) approaching stop-and-go traffic, (b) changing multiple lanes in front of traffic to reach the goal, and (c) yielding to oncoming vehicles before executing an unprotected left turn. The bottom row shows the corresponding ego speed profiles. Videos of these and additional maneuvers can be found at <a class="ltx_ref ltx_href" href="https://flow-matching-self-driving.github.io/" title="">https://flow-matching-self-driving.github.io/</a></span></figcaption>
+</figure>
+<div class="ltx_para" id="S5.SS2.p1">
+<p class="ltx_p" id="S5.SS2.p1.1">In a receding-horizon implementation, where the planner is invoked at regular intervals with updated scene context, it is essential that the goal-conditioned policy can reliably adapt to changes in the desired end pose. To stress test this behavior, we evaluate the planner from a fixed initial condition while specifying two distinct goals: one that requires a sharp right exit and another that demands a left lane change. As shown in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.F2" title="Figure 2 ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">2</span></a>, the planner successfully adapts to both target poses, producing smooth trajectories that remain consistent with the road layout.</p>
+</div>
+<div class="ltx_para" id="S5.SS2.p2">
+<p class="ltx_p" id="S5.SS2.p2.1">We showcase the planner’s behavior in three challenging real-world scenarios: (a) adaptive cruise control, (b) dual lane change, and (c) unprotected left turn. Each row in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.F3" title="Figure 3 ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">3</span></a> shows map snapshots at three time steps (0s, 5s, 8s), depicting the ego trajectory, surrounding traffic, and the goal. The ego’s full trajectory history is visualized, while only 1 second of history is shown for other agents to reduce clutter. The bottom row presents the ego’s speed profile for each maneuver.</p>
+</div>
+<div class="ltx_para" id="S5.SS2.p3">
+<p class="ltx_p" id="S5.SS2.p3.1">In (a), the ego approaches stationary traffic, slows down accordingly, and resumes acceleration once the traffic begins to move, maintaining a safe following distance. In (b), the ego accelerates to merge ahead of traffic and performs two lane changes to reach the goal, then eases its speed near the endpoint. In (c), the ego waits for oncoming vehicles to pass, then gradually accelerates to complete an unprotected left turn. All of these behaviors emerge from the same unified framework without requiring any scenario-specific tuning. In contrast, RL- or MPC-based planners typically require separate offline training or online optimization for each maneuver <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib15" title="Autonomous vehicle overtaking in a bidirectional mixed-traffic setting">26</a>]</cite>.</p>
+</div>
+<figure class="ltx_table" id="S5.T1">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S5.T1.5.1.1" style="font-size:90%;">TABLE I</span>: </span><span class="ltx_text" id="S5.T1.6.2" style="font-size:90%;">Trajectory Accuracy for <span class="ltx_text ltx_font_bold" id="S5.T1.6.2.1">Interactive</span> Split</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T1.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T1.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T1.2.2.3"><span class="ltx_text ltx_font_bold" id="S5.T1.2.2.3.1">Method</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T1.1.1.1">
+<span class="ltx_text ltx_font_bold" id="S5.T1.1.1.1.1">minADE</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T1.1.1.1.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T1.2.2.2">
+<span class="ltx_text ltx_font_bold" id="S5.T1.2.2.2.1">minFDE</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T1.2.2.2.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T1.2.3.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T1.2.3.1.1">Ours (Flow-Adaptive)</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.2.3.1.2">0.92</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.2.3.1.3"><span class="ltx_text ltx_font_bold" id="S5.T1.2.3.1.3.1">0.09</span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.4.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.4.2.1">Flow-Euler-5</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.4.2.2">0.93</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.4.2.3">0.10</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.5.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.5.3.1">Flow-Euler-50</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.5.3.2">1.03</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.5.3.3">0.09</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.6.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.6.4.1">Flow-Adaptive-NoQP</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.6.4.2">1.01</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.6.4.3">0.40</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.7.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.7.5.1">Consistency-Guided</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.7.5.2"><span class="ltx_text ltx_font_bold" id="S5.T1.2.7.5.2.1">0.69</span></td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.7.5.3">0.33</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.8.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.8.6.1">Transformer</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.8.6.2">2.89</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.8.6.3">1.09</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.9.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.9.7.1">DDPM-10</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.9.7.2">1.04</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.9.7.3">2.45</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.10.8">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T1.2.10.8.1">DDPM-20</th>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.10.8.2">1.10</td>
+<td class="ltx_td ltx_align_center" id="S5.T1.2.10.8.3">2.21</td>
+</tr>
+<tr class="ltx_tr" id="S5.T1.2.11.9">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T1.2.11.9.1">DDIM</th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.2.11.9.2">5.98</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T1.2.11.9.3">14.48</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<figure class="ltx_table" id="S5.T2">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S5.T2.5.1.1" style="font-size:90%;">TABLE II</span>: </span><span class="ltx_text" id="S5.T2.6.2" style="font-size:90%;">Trajectory Accuracy for <span class="ltx_text ltx_font_bold" id="S5.T2.6.2.1">Non-Interactive</span> Split</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T2.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T2.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T2.2.2.3"><span class="ltx_text ltx_font_bold" id="S5.T2.2.2.3.1">Method</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T2.1.1.1">
+<span class="ltx_text ltx_font_bold" id="S5.T2.1.1.1.1">minADE</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T2.1.1.1.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T2.2.2.2">
+<span class="ltx_text ltx_font_bold" id="S5.T2.2.2.2.1">minFDE</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T2.2.2.2.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T2.2.3.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T2.2.3.1.1">Ours (Flow-Adaptive)</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T2.2.3.1.2">1.61</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T2.2.3.1.3"><span class="ltx_text ltx_font_bold" id="S5.T2.2.3.1.3.1">0.11</span></td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.4.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.4.2.1">Flow-Euler-5</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.4.2.2">1.61</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.4.2.3">0.13</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.5.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.5.3.1">Flow-Euler-50</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.5.3.2">1.74</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.5.3.3">0.12</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.6.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.6.4.1">Flow-Adaptive-NoQP</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.6.4.2">1.70</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.6.4.3">0.81</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.7.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.7.5.1">Consistency-Guided</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.7.5.2"><span class="ltx_text ltx_font_bold" id="S5.T2.2.7.5.2.1">1.23</span></td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.7.5.3">0.59</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.8.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.8.6.1">Transformer</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.8.6.2">2.80</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.8.6.3">9.25</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.9.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.9.7.1">DDPM-10</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.9.7.2">1.60</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.9.7.3">12.64</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.10.8">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T2.2.10.8.1">DDPM-20</th>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.10.8.2">1.60</td>
+<td class="ltx_td ltx_align_center" id="S5.T2.2.10.8.3">11.26</td>
+</tr>
+<tr class="ltx_tr" id="S5.T2.2.11.9">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T2.2.11.9.1">DDIM</th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T2.2.11.9.2">6.25</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T2.2.11.9.3">22.89</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<figure class="ltx_table" id="S5.T3">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S5.T3.11.1.1" style="font-size:90%;">TABLE III</span>: </span><span class="ltx_text" id="S5.T3.12.2" style="font-size:90%;">Trajectory Quality and Constraint Violations on the <span class="ltx_text ltx_font_bold" id="S5.T3.12.2.1">Interactive</span> Split</span></figcaption>
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" id="S5.T3.8" style="width:345.0pt;height:60.7pt;vertical-align:-29.1pt;"><span class="ltx_transformed_inner" style="transform:translate(-171.8pt,30.2pt) scale(0.50095,0.50095) ;">
+<p class="ltx_p" id="S5.T3.8.8"><span class="ltx_text" id="S5.T3.8.8.8">
+<span class="ltx_inline-block ltx_transformed_outer" id="S5.T3.8.8.8.8" style="width:688.7pt;height:121.2pt;vertical-align:-58.1pt;"><span class="ltx_transformed_inner" style="transform:translate(0.0pt,0.0pt) scale(1,1) ;">
+<span class="ltx_p" id="S5.T3.8.8.8.8.8"><span class="ltx_text" id="S5.T3.8.8.8.8.8.8">
+<span class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S5.T3.8.8.8.8.8.8.8">
+<span class="ltx_thead">
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.8">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T3.8.8.8.8.8.8.8.8.9"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.8.9.1">Method</span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.1.1.1.1.1.1.1.1.1"><span class="ltx_text ltx_font_bold" id="S5.T3.1.1.1.1.1.1.1.1.1.1">Angle Change</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.1.1.1.1.1.1.1.1.1.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.2.2.2.2.2.2.2.2.2"><span class="ltx_text ltx_font_bold" id="S5.T3.2.2.2.2.2.2.2.2.2.1">Path Length</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.2.2.2.2.2.2.2.2.2.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.3.3.3.3.3.3.3.3.3"><span class="ltx_text ltx_font_bold" id="S5.T3.3.3.3.3.3.3.3.3.3.1">Curvature</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.3.3.3.3.3.3.3.3.3.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.4.4.4.4.4.4.4.4.4"><span class="ltx_text ltx_font_bold" id="S5.T3.4.4.4.4.4.4.4.4.4.1">Collision (%)</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.4.4.4.4.4.4.4.4.4.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.5.5.5.5.5.5.5.5.5"><span class="ltx_text ltx_font_bold" id="S5.T3.5.5.5.5.5.5.5.5.5.1">Goal Error</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.5.5.5.5.5.5.5.5.5.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.6.6.6.6.6.6.6.6.6"><span class="ltx_text ltx_font_bold" id="S5.T3.6.6.6.6.6.6.6.6.6.1">Acc. Violation</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.6.6.6.6.6.6.6.6.6.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T3.8.8.8.8.8.8.8.8.8"><math alttext="\omega" class="ltx_Math" display="inline" id="S5.T3.7.7.7.7.7.7.7.7.7.m1" intent=":literal"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.8.8.1"> Violation</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T3.8.8.8.8.8.8.8.8.8.m2" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span></span>
+</span>
+<span class="ltx_tbody">
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.9.1">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.1">Ours (Flow-Adaptive)</span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.2"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.2.1">0.31</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.3"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.3.1">54.93</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.4"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.4.1">0.48</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.5">1.1</span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.6"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.6.1">0.09</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.7"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.7.1">0.12</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T3.8.8.8.8.8.8.8.9.1.8"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.9.1.8.1">0.71</span></span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.10.2">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.10.2.1">Flow-Euler-5</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.2">0.41</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.3">55.09</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.4">0.86</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.5">1.53</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.6">0.10</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.7">0.36</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.10.2.8">1.13</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.11.3">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.11.3.1">Flow-Euler-50</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.2">0.35</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.3">55.04</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.4">0.71</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.5">1.40</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.6">0.09</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.7">0.28</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.11.3.8">0.96</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.12.4">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.12.4.1">Flow-Adaptive-NoQP</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.2">0.69</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.3">56.52</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.4">1.07</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.5">1.55</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.6">0.67</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.7">2.11</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.12.4.8">1.32</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.13.5">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.13.5.1">Consistency-Guided</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.2">0.65</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.3">55.39</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.4">0.97</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.5"><span class="ltx_text ltx_font_bold" id="S5.T3.8.8.8.8.8.8.8.13.5.5.1">0.8</span></span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.6">0.33</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.7">3.82</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.13.5.8">1.47</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.14.6">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.14.6.1">Transformer</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.2">0.47</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.3">55.88</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.4">0.60</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.5">4.8</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.6">8.11</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.7">0.44</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.14.6.8">1.12</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.15.7">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.15.7.1">DDPM-10</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.2">0.63</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.3">67.74</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.4">1.38</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.5">1.8</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.6">2.45</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.7">32.61</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.15.7.8">2.25</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.16.8">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T3.8.8.8.8.8.8.8.16.8.1">DDPM-20</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.2">0.56</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.3">77.91</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.4">1.16</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.5">1.6</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.6">2.21</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.7">56.69</span>
+<span class="ltx_td ltx_align_center" id="S5.T3.8.8.8.8.8.8.8.16.8.8">2.17</span></span>
+<span class="ltx_tr" id="S5.T3.8.8.8.8.8.8.8.17.9">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.1">DDIM</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.2">0.67</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.3">134.50</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.4">1.71</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.5">18.6</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.6">14.48</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.7">167.77</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T3.8.8.8.8.8.8.8.17.9.8">4.51</span></span>
+</span>
+</span></span></span>
+</span></span></span></p>
+</span></div>
+</figure>
+<figure class="ltx_table" id="S5.T4">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S5.T4.11.1.1" style="font-size:90%;">TABLE IV</span>: </span><span class="ltx_text" id="S5.T4.12.2" style="font-size:90%;">Trajectory Quality and Constraint Violations on the <span class="ltx_text ltx_font_bold" id="S5.T4.12.2.1">Non-Interactive</span> Split</span></figcaption>
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" id="S5.T4.8" style="width:345.0pt;height:60.7pt;vertical-align:-29.1pt;"><span class="ltx_transformed_inner" style="transform:translate(-171.8pt,30.2pt) scale(0.50095,0.50095) ;">
+<p class="ltx_p" id="S5.T4.8.8"><span class="ltx_text" id="S5.T4.8.8.8">
+<span class="ltx_inline-block ltx_transformed_outer" id="S5.T4.8.8.8.8" style="width:688.7pt;height:121.2pt;vertical-align:-58.1pt;"><span class="ltx_transformed_inner" style="transform:translate(0.0pt,0.0pt) scale(1,1) ;">
+<span class="ltx_p" id="S5.T4.8.8.8.8.8"><span class="ltx_text" id="S5.T4.8.8.8.8.8.8">
+<span class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S5.T4.8.8.8.8.8.8.8">
+<span class="ltx_thead">
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.8">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T4.8.8.8.8.8.8.8.8.9"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.8.9.1">Method</span></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.1.1.1.1.1.1.1.1.1"><span class="ltx_text ltx_font_bold" id="S5.T4.1.1.1.1.1.1.1.1.1.1">Angle Change</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.1.1.1.1.1.1.1.1.1.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.2.2.2.2.2.2.2.2.2"><span class="ltx_text ltx_font_bold" id="S5.T4.2.2.2.2.2.2.2.2.2.1">Path Length</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.2.2.2.2.2.2.2.2.2.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.3.3.3.3.3.3.3.3.3"><span class="ltx_text ltx_font_bold" id="S5.T4.3.3.3.3.3.3.3.3.3.1">Curvature</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.3.3.3.3.3.3.3.3.3.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.4.4.4.4.4.4.4.4.4"><span class="ltx_text ltx_font_bold" id="S5.T4.4.4.4.4.4.4.4.4.4.1">Collision (%)</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.4.4.4.4.4.4.4.4.4.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.5.5.5.5.5.5.5.5.5"><span class="ltx_text ltx_font_bold" id="S5.T4.5.5.5.5.5.5.5.5.5.1">Goal Error</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.5.5.5.5.5.5.5.5.5.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.6.6.6.6.6.6.6.6.6"><span class="ltx_text ltx_font_bold" id="S5.T4.6.6.6.6.6.6.6.6.6.1">Acc. Violation</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.6.6.6.6.6.6.6.6.6.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span>
+<span class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T4.8.8.8.8.8.8.8.8.8"><math alttext="\omega" class="ltx_Math" display="inline" id="S5.T4.7.7.7.7.7.7.7.7.7.m1" intent=":literal"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.8.8.1"> Violation</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T4.8.8.8.8.8.8.8.8.8.m2" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math></span></span>
+</span>
+<span class="ltx_tbody">
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.9.1">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.1">Ours (Flow-Adaptive)</span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.2"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.2.1">0.29</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.3"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.3.1">57.05</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.4"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.4.1">0.55</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.5">2.4</span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.6"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.6.1">0.11</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.7"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.7.1">0.31</span></span>
+<span class="ltx_td ltx_align_center ltx_border_t" id="S5.T4.8.8.8.8.8.8.8.9.1.8"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.9.1.8.1">0.77</span></span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.10.2">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.10.2.1">Flow-Euler-5</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.2">0.38</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.3">57.30</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.4">0.93</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.5">2.5</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.6">0.13</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.7">0.64</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.10.2.8">1.20</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.11.3">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.11.3.1">Flow-Euler-50</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.2">0.33</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.3">57.20</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.4">0.77</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.5">2.6</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.6">0.12</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.7">0.52</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.11.3.8">1.01</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.12.4">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.12.4.1">Flow-Adaptive-NoQP</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.2">0.73</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.3">59.31</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.4">1.23</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.5">3.1</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.6">1.47</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.7">3.57</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.12.4.8">1.39</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.13.5">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.13.5.1">Consistency-Guided</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.2">0.62</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.3">58.07</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.4">1.00</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.5"><span class="ltx_text ltx_font_bold" id="S5.T4.8.8.8.8.8.8.8.13.5.5.1">2.0</span></span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.6">0.59</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.7">4.75</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.13.5.8">1.50</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.14.6">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.14.6.1">Transformer</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.2">0.42</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.3">59.62</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.4">0.56</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.5">3.3</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.6">9.26</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.7">0.57</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.14.6.8">1.02</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.15.7">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.15.7.1">DDPM-10</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.2">0.66</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.3">88.13</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.4">3.45</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.5">3.7</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.6">12.64</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.7">78.47</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.15.7.8">3.34</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.16.8">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T4.8.8.8.8.8.8.8.16.8.1">DDPM-20</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.2">0.59</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.3">93.19</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.4">2.98</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.5">3.3</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.6">11.26</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.7">89.54</span>
+<span class="ltx_td ltx_align_center" id="S5.T4.8.8.8.8.8.8.8.16.8.8">2.96</span></span>
+<span class="ltx_tr" id="S5.T4.8.8.8.8.8.8.8.17.9">
+<span class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.1">DDIM</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.2">0.68</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.3">158.94</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.4">1.97</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.5">17.6</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.6">22.89</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.7">217.28</span>
+<span class="ltx_td ltx_align_center ltx_border_bb" id="S5.T4.8.8.8.8.8.8.8.17.9.8">5.20</span></span>
+</span>
+</span></span></span>
+</span></span></span></p>
+</span></div>
+</figure>
+</section>
+<section class="ltx_subsection" id="S5.SS3">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS3.5.1.1">V-C</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS3.6.2">Quantitative Comparison of Different Models</span>
+</h3>
+<div class="ltx_para" id="S5.SS3.p1">
+<p class="ltx_p" id="S5.SS3.p1.1">We benchmark our planner against Transformer, Diffusion, and Consistency-based baselines, all using the same context encoder shown in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.F1" title="Figure 1 ‣ I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">1</span></a>. The Transformer baseline follows the MTR decoder <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib24" title="Motion transformer with global intention localization and local movement refinement">20</a>]</cite> and does not condition on the ego goal. In contrast, the Diffusion, Consistency, and our models use goal-conditioned U-Net decoders with the same encoder. For diffusion-based models, we evaluate the DDPM baseline <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib37" title="Denoising diffusion probabilistic models">9</a>]</cite> with 10 and 20 denoising steps, as well as the deterministic DDIM variant <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib26" title="Denoising diffusion implicit models">21</a>]</cite>. The Consistency model, adapted from <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib2" title="Predictive planner for autonomous driving with consistency models">13</a>]</cite>, performs four forward passes followed by a gradient guided constraint enforcement step. To ensure fair runtime comparison, we cap the number of gradient descent iterations to match the 20 Hz planning rate achieved by our method. We evaluate three variants of our approach: Flow-Euler, which uses a fixed number of integration steps (5 and 50); Flow-Adaptive, which adjusts the step size based on a learned variance predictor; and Flow-Adaptive–NoQP, which omits the QP refinement. Both Flow-Euler and Flow-Adaptive methods include the QP-based post-processing step. All U-Net decoders are exported to ONNX and accelerated using TensorRT <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib30" title="Tensorrt inference with tensorflow">4</a>]</cite>.</p>
+</div>
+<div class="ltx_para" id="S5.SS3.p2">
+<p class="ltx_p" id="S5.SS3.p2.2">As shown in Tables <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T1" title="TABLE I ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">I</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T2" title="TABLE II ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">II</span></a>, our adaptive flow matching method achieves the lowest minFDE across both interactive and non-interactive scenarios. This improvement is due to the learned velocity field and the enforcement of goal satisfaction during post-processing. The final displacement error of <math alttext="0.11m" class="ltx_Math" display="inline" id="S5.SS3.p2.1.m1" intent=":literal"><semantics><mrow><mn>0.11</mn><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">0.11m</annotation></semantics></math> is close to the goal-reaching tolerance of <math alttext="r=0.1m" class="ltx_Math" display="inline" id="S5.SS3.p2.2.m2" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mrow><mn>0.1</mn><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">r=0.1m</annotation></semantics></math> used in Eq. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.E2" title="In IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">2</span></a>, indicating effective constraint satisfaction. Our method reports a slightly higher minADE than the consistency model, reflecting an inherent tradeoff: the post-processing step may shift the trajectory away from the nominal flow matching output to better satisfy constraints. Since ADE is computed relative to the ground truth, such deviations can slightly increase intermediate errors.</p>
+</div>
+<div class="ltx_para" id="S5.SS3.p3">
+<p class="ltx_p" id="S5.SS3.p3.1">Tables <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T3" title="TABLE III ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">III</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T4" title="TABLE IV ‣ V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">IV</span></a> evaluate trajectory smoothness and constraint satisfaction across all models. Our method outperforms all baselines on nearly all metrics in both interactive and non-interactive settings, achieving lower angular change, shorter path length, reduced curvature, smaller goal-reaching error, and fewer violations of acceleration and angular velocity limits. These gains are primarily due to the learned flow matching planner, which produces smooth, goal-directed trajectories. The quadratic program provides a lightweight refinement that further reduces constraint violations. The only exception is the collision rate, where our method performs comparably to the best baseline, the Consistency model.</p>
+</div>
+<figure class="ltx_figure" id="S5.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="207" id="S5.F4.g1" src="collision_rate.jpg" width="419"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F4.2.1.1" style="font-size:90%;">Figure 4</span>: </span><span class="ltx_text" id="S5.F4.3.2" style="font-size:90%;">Collision rate plot: Collisions are rare initially and higher toward the end of the horizon. With continuous replanning, the early time steps are most critical for safety.</span></figcaption>
+</figure>
+<div class="ltx_para" id="S5.SS3.p4">
+<p class="ltx_p" id="S5.SS3.p4.1">Since collision rate is a key safety measure, we analyze collision occurrences along the planning horizon of <math alttext="8" class="ltx_Math" display="inline" id="S5.SS3.p4.1.m1" intent=":literal"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math> seconds. Figure <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.F4" title="Figure 4 ‣ V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">4</span></a> shows that most collisions occur near the end rather than at the beginning. This is expected, as small deviations from the ground-truth trajectory accumulate over time, leading to larger divergence later in the plan. While collisions are measured in an open-loop setting without replanning, real-world deployment would involve continuous updates based on the evolving scene context. In such cases, the planner would regenerate the trajectory at each cycle, making safety in the early steps more critical. Our method maintains collision-free behavior in these initial segments. Finally, future work will involve incorporating obstacle avoidance as explicit constraints in the post-processing optimization, as shown in  <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib43" title="SafeFlowMatcher: safe and fast planning using flow matching with control barrier functions">30</a>]</cite>.</p>
+</div>
+<figure class="ltx_table" id="S5.T5">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S5.T5.4.1.1" style="font-size:90%;">TABLE V</span>: </span><span class="ltx_text" id="S5.T5.5.2" style="font-size:90%;">Inference Time and NFE Analysis</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T5.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T5.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt" id="S5.T5.2.2.3"><span class="ltx_text ltx_font_bold" id="S5.T5.2.2.3.1">Method</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T5.1.1.1">
+<span class="ltx_text ltx_font_bold" id="S5.T5.1.1.1.1">Time (ms)</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T5.1.1.1.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+<th class="ltx_td ltx_nopad_r ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S5.T5.2.2.2">
+<span class="ltx_text ltx_font_bold" id="S5.T5.2.2.2.1">NFE</span> <math alttext="\downarrow" class="ltx_Math" display="inline" id="S5.T5.2.2.2.m1" intent=":literal"><semantics><mo stretchy="false">↓</mo><annotation encoding="application/x-tex">\downarrow</annotation></semantics></math>
+</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T5.2.3.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T5.2.3.1.1">Ours (Flow-Adaptive)</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T5.2.3.1.2">45 ± 4.9</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_t" id="S5.T5.2.3.1.3">4.7 ± 1.4</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.4.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.4.2.1">Flow-Euler-5</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.4.2.2">55 ± 3.8</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.4.2.3">5.0 ± 0.0</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.5.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.5.3.1">Flow-Euler-50</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.5.3.2">676 ± 25.3</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.5.3.3">50.0 ± 0.0</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.6.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.6.4.1">Flow-Adaptive-NoQP</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.6.4.2">43 ± 4.2</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.6.4.3">4.7 ± 1.4</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.7.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.7.5.1">Consistency-Guided</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.7.5.2">52 ± 4.5</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.7.5.3">4.0 ± 0.0</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.8.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.8.6.1">Transformer</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.8.6.2">37 ± 3.1</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.8.6.3">N/A</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.9.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.9.7.1">DDPM-10</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.9.7.2">83 ± 7.2</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.9.7.3">10.0 ± 0.0</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.10.8">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="S5.T5.2.10.8.1">DDPM-20</th>
+<td class="ltx_td ltx_align_center" id="S5.T5.2.10.8.2">125 ± 10.7</td>
+<td class="ltx_td ltx_nopad_r ltx_align_center" id="S5.T5.2.10.8.3">20.0 ± 0.0</td>
+</tr>
+<tr class="ltx_tr" id="S5.T5.2.11.9">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb" id="S5.T5.2.11.9.1">DDIM</th>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S5.T5.2.11.9.2"><span class="ltx_text ltx_font_bold" id="S5.T5.2.11.9.2.1">37 ± 2.5</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_center ltx_border_bb" id="S5.T5.2.11.9.3"><span class="ltx_text ltx_font_bold" id="S5.T5.2.11.9.3.1">4.0 ± 0.0</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_subsection" id="S5.SS4">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS4.5.1.1">V-D</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS4.6.2">Analysis of Inference Time and Adaptive Integration</span>
+</h3>
+<figure class="ltx_figure" id="S5.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="222" id="S5.F5.g1" src="nfe_cropped.png" width="359"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S5.F5.2.1.1" style="font-size:90%;">Figure 5</span>: </span><span class="ltx_text" id="S5.F5.3.2" style="font-size:90%;">Normalized integration time for different NFE. The non-uniform progression reflects variance-based step size adjustment, unlike the uniform fixed-step Euler integration.</span></figcaption>
+</figure>
+<div class="ltx_para" id="S5.SS4.p1">
+<p class="ltx_p" id="S5.SS4.p1.1">Table <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T5" title="TABLE V ‣ V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">V</span></a> reports the mean and standard deviation of inference time and number of U-Net function evaluations (NFE) for all methods, computed over all scenes in the interactive validation split. Inference time is measured as the total time needed to produce traffic behavior predictions and ego plans from the motion history, map, and goal inputs.</p>
+</div>
+<div class="ltx_para" id="S5.SS4.p2">
+<p class="ltx_p" id="S5.SS4.p2.1">Our method achieves an average inference time of 45 milliseconds, corresponding to a 20 Hz planning rate suitable for real-time deployment. While DDIM is slightly faster at 37 milliseconds, its performance in trajectory quality and constraint satisfaction falls short of ours. Other baselines such as Consistency, Transformer, and DDPM-10 operate in a similar time range but do not match our overall metrics.</p>
+</div>
+<div class="ltx_para" id="S5.SS4.p3">
+<p class="ltx_p" id="S5.SS4.p3.1">To visualize how adaptive time stepping operates, we analyze the average integration step size during inference for NFE values of 4, 5, and 6 on the interactive validation set. As shown in Fig. <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.F5" title="Figure 5 ‣ V-D Analysis of Inference Time and Adaptive Integration ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">5</span></a>, we observe non-uniform step sizes, indicating that the variance module allocates computation based on confidence. Low predicted variance suggests that the model has encountered similar scene contexts during training and assigns larger steps due to a reliable velocity field. Conversely, high variance results in smaller steps in unfamiliar scene contexts.</p>
+</div>
+<div class="ltx_para" id="S5.SS4.p4">
+<p class="ltx_p" id="S5.SS4.p4.1">To further illustrate the benefit of adaptive integration, we compare against fixed-step variants of our model. We observe that flow matching with 50 steps achieves performance comparable to the adaptive variant but at significantly higher computational cost due to increased U-Net evaluations. We also evaluate flow matching with 5 steps, selected to match the average number of function evaluations used by the adaptive model. This variant performs notably worse, indicating that fixed low-resolution integration fails to generalize across diverse scenarios. We include the Flow-Adaptive–NoQP variant, which excludes the post-processing step. This exhibits more frequent constraint violations. As shown in Table <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.T5" title="TABLE V ‣ V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">V</span></a>, the QP refinement adds only about 1-2 milliseconds to the runtime while significantly improving motion planning performance.</p>
+</div>
+<div class="ltx_para" id="S5.SS4.p5">
+<p class="ltx_p" id="S5.SS4.p5.1">Finally, it is worth noting that in <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib2" title="Predictive planner for autonomous driving with consistency models">13</a>]</cite>, the Consistency model required extensive tuning of the noise schedule to optimize performance on the WOMD. This process involved retraining both the encoder and U-Net, taking approximately five days on four H100 GPUs per run. In contrast, our adaptive variant achieves a similar average NFE of 4.7 without any manual tuning, as the number of U-Net evaluations is automatically determined by the learned variance estimator.</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VI </span><span class="ltx_text ltx_font_smallcaps" id="S6.1.1">Conclusion and Future Work</span>
+</h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">In this work, we presented a framework for interactive motion planning for autonomous vehicles in urban settings, based on adaptive flow matching. The approach operates in real time, requires no scenario-specific tuning, and generates smooth trajectories that try to satisfy ride quality constraints.</p>
+</div>
+<div class="ltx_para" id="S6.p2">
+<p class="ltx_p" id="S6.p2.1">While our current implementation relies on polyline-based map inputs provided by the WOMD, this assumes access to dedicated preprocessing and sensor infrastructure. As future work, we aim to replace the map encoder with vision-based alternatives that operate directly on raw LiDAR or camera data <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib34" title="Deep residual learning for image recognition">8</a>]</cite>. We also plan to evaluate the planner in closed-loop simulation environments such as MetaDrive <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#bib.bib33" title="Metadrive: composing diverse driving scenarios for generalizable reinforcement learning">15</a>]</cite>, followed by deployment on real hardware platforms.</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib41">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Amini, W. Schwarting, G. Rosman, B. Araki, S. Karaman, and D. Rus</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Variational autoencoder for end-to-end control of autonomous driving with novelty detection and training de-biasing</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 568–575</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib10">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Caesar, V. Bankiti, A. H. Lang, S. Vora, V. E. Liong, Q. Xu, A. Krishnan, Y. Pan, G. Baldan, and O. Beijbom</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nuscenes: a multimodal dataset for autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 11621–11631</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p2.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Chi, Z. Xu, S. Feng, E. Cousineau, Y. Du, B. Burchfiel, R. Tedrake, and S. Song</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffusion policy: visuomotor policy learning via action diffusion</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">The International Journal of Robotics Research</span>, <span class="ltx_text ltx_bib_pages"> pp. 02783649241273668</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p3.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p3.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib30">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Davoodi, C. Gwon, G. Lai, and T. Morris</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tensorrt inference with tensorflow</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">GPU Technology Conference</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p7.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p1.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib20">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Dendorfer, A. Osep, and L. Leal-Taixé</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Goal-gan: multimodal trajectory prediction based on goal position estimation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Asian Conference on Computer Vision</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib39">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Doersch</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tutorial on variational autoencoders</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:1606.05908</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib38">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D. Warde-Farley, S. Ozair, A. Courville, and Y. Bengio</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Generative adversarial networks</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Communications of the ACM</span> <span class="ltx_text ltx_bib_volume">63</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages"> pp. 139–144</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib34">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. He, X. Zhang, S. Ren, and J. Sun</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Deep residual learning for image recognition</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the IEEE conference on computer vision and pattern recognition</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 770–778</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S6.p2.1" title="VI Conclusion and Future Work ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§VI</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Ho, A. Jain, and P. Abbeel</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Denoising diffusion probabilistic models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advances in neural information processing systems</span> <span class="ltx_text ltx_bib_volume">33</span>, <span class="ltx_text ltx_bib_pages"> pp. 6840–6851</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p1.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Hu, Q. Liu, X. Liu, and B. Liu</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Adaflow: imitation learning with variance-adaptive flow-based policies</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advances in Neural Information Processing Systems</span> <span class="ltx_text ltx_bib_volume">37</span>, <span class="ltx_text ltx_bib_pages"> pp. 138836–138858</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p5.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS3.SSSx2.p1.8" title="Variance-Adaptive Time-Stepping ‣ III-C Variance-Adaptive Flow Matching ‣ III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">III-C</span></span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS2.p2.7" title="IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">IV-B</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib45">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Ivanovic and M. Pavone</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The trajectron: probabilistic multi-agent trajectory modeling with dynamic spatiotemporal graphs</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the IEEE/CVF international conference on computer vision</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 2375–2384</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p1.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Ke, N. Gkanatsios, and K. Fragkiadaki</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">3d diffuser actor: policy diffusion with 3d scene representations</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2402.10885</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p3.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Li, S. Bae, D. Isele, R. Beeson, and F. M. Tariq</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Predictive planner for autonomous driving with consistency models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2502.08033</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p4.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p1.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS4.p5.1" title="V-D Analysis of Inference Time and Adaptive Integration ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-D</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib36">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Li, Z. Ding, A. B. Dieng, and R. Beeson</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffusolve: diffusion-based solver for non-convex trajectory optimization</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2403.05571</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p3.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Q. Li, Z. Peng, L. Feng, Q. Zhang, Z. Xue, and B. Zhou</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Metadrive: composing diverse driving scenarios for generalizable reinforcement learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE transactions on pattern analysis and machine intelligence</span> <span class="ltx_text ltx_bib_volume">45</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 3461–3475</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S6.p2.1" title="VI Conclusion and Future Work ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§VI</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib12">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Liao, S. Chen, H. Yin, B. Jiang, C. Wang, S. Yan, X. Zhang, X. Li, Y. Zhang, Q. Zhang, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffusiondrive: truncated diffusion model for end-to-end autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Computer Vision and Pattern Recognition Conference</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 12037–12047</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p3.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Lipman, R. T. Chen, H. Ben-Hamu, M. Nickel, and M. Le</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Flow matching for generative modeling</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2210.02747</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p4.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS3.SSSx1.p1.13" title="Overview of Flow Matching ‣ III-C Variance-Adaptive Flow Matching ‣ III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">III-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Qiao, F. Ding, T. Dresselhaus, M. A. Rosenfeld, X. Han, O. Howell, A. Iyengar, S. Opalenski, A. S. Christensen, S. K. Sirumalla, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">NeuralPLexer3: physio-realistic biomolecular complex structure prediction with flow models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2412.10743</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p4.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib25">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. Ronneberger, P. Fischer, and T. Brox</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">U-net: convolutional networks for biomedical image segmentation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Conference on Medical image computing and computer-assisted intervention</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 234–241</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS1.SSSx2.p1.6" title="Velocity Field and Variance Head Architecture ‣ IV-A Neural Network Architectures ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">IV-A</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Shi, L. Jiang, D. Dai, and B. Schiele</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Motion transformer with global intention localization and local movement refinement</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advances in Neural Information Processing Systems</span> <span class="ltx_text ltx_bib_volume">35</span>, <span class="ltx_text ltx_bib_pages"> pp. 6531–6543</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S3.SS2.p1.1" title="III-B Motion Transformer Encoder ‣ III Preliminaries ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">III-B</span></span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS2.p1.1" title="IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">IV-B</span></span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p1.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Song, C. Meng, and S. Ermon</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Denoising diffusion implicit models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2010.02502</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p1.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib42">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Song, P. Dhariwal, M. Chen, and I. Sutskever</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Consistency models</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p4.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Stellato, G. Banjac, P. Goulart, A. Bemporad, and S. Boyd</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OSQP: an operator splitting solver for quadratic programs</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Mathematical Programming Computation</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 637–672</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS2.SSSx1.p4.1" title="Constrained Refinement of Predicted Trajectories ‣ IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">IV-B</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib11">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Sun, H. Kretzschmar, X. Dotiwalla, A. Chouard, V. Patnaik, P. Tsui, J. Guo, Y. Zhou, Y. Chai, B. Caine, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Scalability in perception for autonomous driving: waymo open dataset</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the IEEE/CVF conference on computer vision and pattern recognition</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 2446–2454</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p2.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS1.p1.1" title="V-A Dataset and Evaluation Setup ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-A</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib28">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. M. Tariq, D. Isele, J. S. Baras, and S. Bae</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Slas: speed and lane advisory system for highway navigation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2022 IEEE 61st Conference on Decision and Control (CDC)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 6979–6986</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p1.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib15">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. M. Tariq, N. Suriyarachchi, C. Mavridis, and J. S. Baras</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Autonomous vehicle overtaking in a bidirectional mixed-traffic setting</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2022 American Control Conference (ACC)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 3132–3139</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p1.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS2.p3.1" title="V-B Trajectory Output Visualizations ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-B</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib31">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Trivedi, S. Prajapati, A. Shirgaonkar, M. Zolotas, and T. Padır</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Data-driven sampling based stochastic mpc for skid-steer mobile robot navigation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2025 IEEE International Conference on Robotics and Automation (ICRA)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 16619–16625</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p1.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S4.SS2.SSSx1.p2.4" title="Constrained Refinement of Predicted Trajectories ‣ IV-B Training Procedure ‣ IV Methodology ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">IV-B</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib44">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Trivedi, S. Prajapati, M. Zolotas, M. Everett, and T. Padır</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Chance-constrained convex mpc for robust quadruped locomotion under parametric and additive uncertainties</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Robotics and Automation Letters</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p1.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib13">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Xing, X. Zhang, Y. Hu, B. Jiang, T. He, Q. Zhang, X. Long, and W. Yin</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Goalflow: goal-driven flow matching for multimodal trajectories generation in end-to-end autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Computer Vision and Pattern Recognition Conference</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1602–1611</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p2.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p4.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p5.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS1.p1.1" title="V-A Dataset and Evaluation Setup ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-A</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib43">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Yang, S. Jang, and S. Han</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SafeFlowMatcher: safe and fast planning using flow matching with control barrier functions</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2509.24243</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p6.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S5.SS3.p4.1" title="V-C Quantitative Comparison of Different Models ‣ V Experiments and Results ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">V-C</span></span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib1">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Ye and M. C. Gombolay</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Efficient trajectory forecasting and generation with conditional flow matching</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 2816–2823</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p4.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p5.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib40">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Zheng, R. Song, X. Guo, C. Zhang, and L. Chen</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Genad: generative end-to-end autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">European Conference on Computer Vision</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 87–104</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S2.p2.1" title="II Related Works ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib35">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Zhong, D. Rempe, D. Xu, Y. Chen, S. Veer, T. Che, B. Ray, and M. Pavone</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Guided conditional diffusion for controllable traffic simulation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2210.17366</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="https://arxiv.org/html/2602.10285v2#S1.p3.1" title="I Introduction ‣ Adaptive Time Step Flow Matching for Autonomous Driving Motion Planning"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Sat Feb 14 03:14:29 2026 by <a class="ltx_LaTeXML_logo" href="http://dlmf.nist.gov/LaTeXML/"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img alt="Mascot Sammy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg=="/></a>
+</div></footer>
+</div>
+</body>
+</html>
